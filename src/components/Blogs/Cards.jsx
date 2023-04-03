@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import img from '../../images/carousel/img1.jpg';
+import img from '../../images/Random Images/Free download Hd Wallpapers Russell Westbrook 307 X 512 43 Kb Jpeg.jpg';
 import ReactMarkdown from 'react-markdown'
 const useStyles = makeStyles({
   root: {

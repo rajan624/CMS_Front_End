@@ -1,9 +1,8 @@
 import ContactForm from "../ContactForm/ContactForm";
-import logo from "../../images/logo.png";
+import logo from "../../images/Logo/logo1.jpeg"
 import classes from "./About.module.css";
 import { Grid, Typography } from "@material-ui/core";
-import Fade from 'react-reveal/Fade';
-
+import Fade from "react-reveal/Fade";
 
 const About = () => {
   return (
@@ -11,11 +10,9 @@ const About = () => {
       {/* Heading */}
       <div className={classes.heading}>
         <Typography variant="h2" component="h2" align="center">
-          Tanzeem Tahafaz-E- Maholiyat
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, repellat!
         </Typography>
-        <Typography variant="h4" align="center">
-          Environmental Protection Organization
-        </Typography>
+        <Typography variant="h4" align="center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, minima?        </Typography>
       </div>
       {/* Grid Start */}
       <Grid container className={classes.contentBox}>
@@ -35,42 +32,53 @@ const About = () => {
             variant="body1"
             align="justify"
           >
-            TANZEEM TAHAFAZ-E-MAHOLIAT (Environmental Protection Organization)
-            EPO is a non-governmental, not-for-profit, non-sectarian and
-            non-partisan dynamic and flexible organization based in district
-            Bhakkar of Punjab province with a global vision and local focus- was
-            set up in 1996 to increase the consciousness and knowledge about the
-            environment and the major environmental problems facing the Earth
-            today. EPO has been providing leadership role in the field of
-            environment and resource management since its inception. EPO has
-            been engaged in environmental development activities with a
-            philosophy social development by self-help and community
-            participation. EPO is registered under the social welfare agencies
-            1961(XLVI of 1961). EPO registration date is 06th August 1996. EPO
-            registration number is DDSW (SGD) 96-372. It’s a human-centered NGO.
-            EPO could also be labeled as an implementing organization which
-            designs and implements various developmental projects with the
-            financial and technical support of international donor agencies and
-            the government.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam,
+            saepe esse repellendus, necessitatibus in, magnam aliquam inventore
+            modi quidem a eaque. Nostrum officiis tenetur, dicta similique
+            corporis doloribus repellat! Quam corporis, perferendis amet qui
+            repellendus magni nesciunt ab dignissimos commodi asperiores
+            exercitationem nostrum inventore quasi aspernatur recusandae sequi.
+            Similique accusantium dolores ut odit aut autem! Enim dicta rerum
+            amet placeat, cum sint commodi rem. Deleniti illum pariatur ea ab
+            libero totam architecto nihil doloremque velit autem, necessitatibus
+            error magnam delectus maxime nobis tempore eligendi, quas officia
+            numquam placeat aliquid dignissimos ut. Perferendis dolorum sint,
+            quos modi dolorem repellat. Quia amet perferendis odio dignissimos
+            fuga reprehenderit hic fugit sunt itaque totam molestiae minima vel,
+            iure ab quae consectetur temporibus, officia enim. Dolorem eum
+            fugiat omnis, suscipit doloremque nam natus nemo! Porro, facere
+            quidem consectetur amet fugit doloremque reiciendis, repellat
+            blanditiis in nihil unde ipsam, adipisci natus beatae laboriosam
+            odit deleniti. Suscipit iste obcaecati vitae incidunt, velit dicta
+            neque fugiat eos, unde voluptates recusandae debitis, facilis porro
+            saepe eligendi similique blanditiis nihil accusantium! Placeat
+            obcaecati quo optio, amet perspiciatis eligendi. Expedita quisquam
+            quia excepturi vel veniam, asperiores laboriosam hic vitae sapiente
+            facere, aut ratione reiciendis eos dolorem, debitis incidunt animi
+            perspiciatis. Aperiam, sit assumenda corrupti libero est in eaque
+            laborum reprehenderit veritatis! Dignissimos pariatur doloribus
+            expedita corporis iusto fuga ea itaque saepe ipsam alias ab tenetur
+            sint officiis nihil aspernatur vel nisi beatae praesentium harum
+            sequi eos, obcaecati labore assumenda dolorum. Cum nostrum dicta
+            dolore dolor maxime repellat! Quibusdam ratione nisi nostrum.
           </Typography>
         </Grid>
       </Grid>
-        {/* Mission */}
-        <Grid className={classes.contentBox} spacing="1" item lg={12}>
+      {/* Mission */}
+      <Grid className={classes.contentBox} spacing="1" item lg={12}>
         <Typography variant="h3" align="center">
-            Mission
+          Mission
         </Typography>
         <Typography
           className={classes.paragraph}
           variant="body1"
           component="p"
           align="center"
-        >
-          Work to achieve our vision through promotion of resource mobilization with close coordination of Vulnerable communities, NGO’s, INGO’s, and Government Departments. 
+        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores culpa repellendus accusamus iure labore dignissimos.
         </Typography>
       </Grid>
 
-        {/* Vision */}
+      {/* Vision */}
       <Grid className={classes.contentBox} spacing="1" item lg={12}>
         <Typography variant="h3" align="center">
           Vision
@@ -85,7 +93,7 @@ const About = () => {
           and Healthy society
         </Typography>
       </Grid>
-        {/* Goal */}
+      {/* Goal */}
       <Grid className={classes.contentBox} spacing="1" item lg={12}>
         <Typography variant="h3" align="center">
           Goal
@@ -95,21 +103,24 @@ const About = () => {
           variant="body1"
           component="p"
           align="center"
-        >To contribute in sustainable development Goals (SDG’s) through Advocacy in sectors of Health Water, Sanitation and Clean Energy & CA with coordinative and collaborative efforts for sustainability of vulnerable communities.</Typography>
+        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit minus dolorum eveniet eligendi quisquam nisi voluptate ducimus quo ipsa, ipsum id. Soluta corporis labore, deserunt ipsa aut voluptas quam eligendi!
+        </Typography>
       </Grid>
-        {/* Values */}
+      {/* Values */}
       <Grid className={classes.contentBox} spacing="1" item lg={12}>
         <Typography variant="h3" align="center">
           Our Values
         </Typography>
         <ul className={classes.values}>
-            <li>Protect the Nature</li>
-            <li>Trees For Life</li>
-            <li>Prevent The Blindness</li>
-            <li>Community Empowerment</li>
-            <li>Gender Justice</li>
-            <li>Equity and Justice, to ensure that everyone – irrespective of sex, age, race, color, creed, class and religion</li>
-            
+          <li>Protect the Nature</li>
+          <li>Trees For Life</li>
+          <li>Prevent The Blindness</li>
+          <li>Community Empowerment</li>
+          <li>Gender Justice</li>
+          <li>
+            Equity and Justice, to ensure that everyone – irrespective of sex,
+            age, race, color, creed, class and religion
+          </li>
         </ul>
       </Grid>
 

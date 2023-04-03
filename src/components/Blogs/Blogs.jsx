@@ -31,14 +31,14 @@ const useStyles = makeStyles((theme) => ({
 const Blogs = () => {
   
   const [data, setData] = React.useState();     
-  React.useEffect(() => {
-    axios
-      .get(`${url}/blogs`)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // React.useEffect(() => {
+  //   axios
+  //     .get(`${url}/blogs`)
+  //     .then((response) => {
+  //       setData(response.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   // const title = data.map((blog)=>blog.Title)
 

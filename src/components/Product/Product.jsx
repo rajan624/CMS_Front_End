@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "./Product.module.css";
 import trees from "./tree.json";
-import img from "../../images/donate/tree2.jpg";
 
 const Product = () => {
   return (
     <div className={styles.featured}>
-      {trees.map((tree) => {
+      {/* {trees.map((tree) => {
         return (
           <div key={tree.id} className={styles.card}>
             <img src={img} alt={`Preview of ${tree.title}`} />
@@ -30,7 +29,7 @@ const Product = () => {
             </p>
           </div>
         );
-      })}
+      })} */}
     </div>
   );
 };

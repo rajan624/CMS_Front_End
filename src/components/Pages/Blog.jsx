@@ -11,9 +11,9 @@ import Fade from 'react-reveal/Fade';
 const Blog = () => {
   return (
     <Fade left className={classes.blog}>
-      <div className={classes.btn}>
+      {/* <div className={classes.btn}>
         <Popup title='Register' component={<Register/>} />
-      </div>
+      </div> */}
       <div>
         <Blogs />
       </div>

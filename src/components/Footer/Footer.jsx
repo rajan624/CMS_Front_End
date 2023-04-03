@@ -1,9 +1,8 @@
 import React from "react";
 import classes from "./Footer.module.css";
-
-import logo from "../../images/logo.png";
-import right from "../../images/footer/1.png";
-import left from "../../images/footer/2.png";
+import logo from "../../images/Logo/logo1.jpeg"
+import right from "../../images/Random Images/Free download Hd Wallpapers Russell Westbrook 307 X 512 43 Kb Jpeg.jpg";
+import left from "../../images/Random Images/Russell Westbrook Wallpaper for mobile phone tablet desktop.jpg";
 
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
@@ -23,15 +22,15 @@ const Footer = () => {
           <h5>Contact Us</h5>
           <li>
             <PhoneIcon fontSize="small" className={classes.icon} />{" "}
-            +92-333-6573418
+            +88474778789
           </li>
           <li>
             <EmailIcon fontSize="small" className={classes.icon} />{" "}
-            info@epo.org.pk
+Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus, dolore?
           </li>
           <li>
             <LanguageIcon fontSize="small" className={classes.icon} />{" "}
-            www.epo.org.pk
+            Lorem ipsum dolor sit amet.
           </li>
         </ul>
         {/* Links */}
@@ -57,30 +56,30 @@ const Footer = () => {
         <ul className={classes.feild}>
           <h5>Social Sites</h5>
           <li>
-            <a target="_blank" href="https://www.facebook.com/epo.org.pk">
+            <a target="_blank" href="https://www.facebook.com/">
               Facebook
             </a>
           </li>
           <li>
-            <a target="_blank" href="https://twitter.com/saadusufzaii">
+            <a target="_blank" href="https://twitter.com/">
               Twitter
             </a>
           </li>
           <li>
             <a
               target="_blank"
-              href="https://www.youtube.com/channel/UCQUzFN8_vjiSwdxnxxNpd0Q"
+              href="https://www.youtube.com/"
             >
               YouTube
             </a>
           </li>
           <li>
-            <a target="_blank" href="https://www.linkedin.com/in/saadusufzai/">
+            <a target="_blank" href="https://www.linkedin.com/">
               LinkedIn
             </a>
           </li>
           <li>
-            <a target="_blank" href="https://www.skype.com/en/">
+            <a target="_blank" href="https://www.skype.com/">
               Skype
             </a>
           </li>
@@ -89,18 +88,17 @@ const Footer = () => {
         <ul className={classes.address}>
           <h5>Address</h5>
           <li>
-            Environmental Protection Organization (EPO) Office, 2nd Floor Nasir
-            Hospital, Bhakkar, Punjab Pakistan
+       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, eius?
           </li>
           <h5>Follow Us</h5>
-          <a target="_blank" href="https://www.facebook.com/epo.org.pk">
+          <a target="_blank" href="https://www.facebook.com">
             <FacebookIcon
               className={classes.socialIcon}
               fontSize="large"
               color="primary"
             />
           </a>
-          <a target="_blank" href="https://twitter.com/saadusufzaii">
+          <a target="_blank" href="https://twitter.com/">
             {" "}
             <TwitterIcon
               className={classes.socialIcon}
@@ -110,7 +108,7 @@ const Footer = () => {
           </a>
           <a
             target="_blank"
-            href="https://www.youtube.com/channel/UCQUzFN8_vjiSwdxnxxNpd0Q"
+            href="https://www.youtube.com/"
           >
             <YouTubeIcon
               className={classes.socialIcon}
@@ -123,7 +121,7 @@ const Footer = () => {
       <div className={classes.copyright}>
         <img src={left} alt="epo man with tree" />
         <h2 className={classes.text}>
-          Copyright &copy;2020-2021 | All rights reserved by www.epo.org.pk
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem nobis recusandae, sapiente reiciendis sunt iste.
         </h2>
         <img src={right} alt="epo man with tree" />
       </div>

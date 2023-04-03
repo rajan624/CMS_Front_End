@@ -1,7 +1,6 @@
 import React,{ useState} from "react";
 import { Tooltip } from "@material-ui/core";
-
-import logo from '../images/logo.png'
+import logo from '../images/Logo/logo1.jpeg'
 import classes from './Header.module.css'
 import Button from './Button/Button'
 import {Link} from 'react-router-dom'
@@ -24,19 +23,14 @@ const Header = ({darkMode, setDarkMode})=> {
                     <li  onClick={()=>setBurger(false)}><Link to="/about">About</Link></li>
                     <li onClick={()=>setBurger(false)}><Link to="/gallery">Gallery</Link></li>
                     <li onClick={()=>setBurger(false)}><Link to="/blog">Blog</Link></li>
+                    <li onClick={()=>setBurger(false)}><Link to="/blog">Login</Link></li>
                     <li onClick={()=>setBurger(false)}><Link to="/contact">Contact</Link></li>
-
-                    <Button  text={'Donate'} setBurger={setBurger}  link={'/donate'}/>
+{/* 
+                    <Button  text={'Donate'} setBurger={setBurger}  link={'/donate'}/> */}
                     
                         
                 </ul>
             </div>
-            {/* <Tooltip title='Toggle Dark/Light Theme'>  
-          <Switch
-        checked={darkMode}
-        onChange={()=>setDarkMode(!darkMode)}
-        
-      /></Tooltip> */}
         </div>
 
     )

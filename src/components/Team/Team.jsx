@@ -1,8 +1,5 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
-import img1 from '../../images/team/1.jpg';
-import img2 from '../../images/team/2.jpg';
-import img3 from '.././../images/team/yasmin.jpeg';
 import Button from '../Button/Button';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,76 +27,11 @@ const Team = () => {
   };
   return (
     <div>
-      <Typography variant='h3' align='center'>
+      <Typography variant="h3" align="center">
         Our Team
       </Typography>
       <div className={classes.boxes}>
-        {/* team 1 */}
-        <Card className={classes.box}>
-          <img className={classes.img} src={img2} alt='Dr Mazhar Naqvi' />
-          <Typography variant='h6' align='center'>
-            Dr.Mazhar Naqvi
-          </Typography>
-          <Typography variant='body1' align='center'>
-            CEO
-          </Typography>
-          <CardActions>
-            <span className={classes.learnMore}> Learn More</span>
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label='show more'
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
-
-          <Collapse in={expanded} timeout='auto' unmountOnExit>
-            <CardContent>
-              <Typography>
-                Dr.Mazhar Abbas Naqvi is the CEO and Patron of EPO
-              </Typography>
-            </CardContent>
-          </Collapse>
-        </Card>
-        {/* team 2 */}
-
-        <Card className={classes.box}>
-          <img className={classes.img} src={img1} alt='Aslam Jaan' />
-          <Typography variant='h6' align='center'>
-            Aslam Jaan
-          </Typography>
-          <Typography variant='body1' align='center'>
-            President
-          </Typography>
-
-          <CardActions disableSpacing>
-            <span className={classes.learnMore}> Learn More</span>
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label='show more'
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
-
-          <Collapse in={expanded} timeout='auto' unmountOnExit>
-            <CardContent>
-              <Typography>
-                Aslam Iqbal Khan is the Founder & President of EPO{' '}
-              </Typography>
-            </CardContent>
-          </Collapse>
-        </Card>
-        {/* team 3 */}
-        <Card className={classes.box}>
+        {/*   <Card className={classes.box}>
           <img className={classes.img} src={img3} alt='team member 1' />
           <Typography variant='h6' align='center'>
             Muhammad Yasmin
@@ -128,7 +60,7 @@ const Team = () => {
               </Typography>
             </CardContent>
           </Collapse>
-        </Card>
+        </Card> */}
       </div>
     </div>
   );

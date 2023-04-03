@@ -4,9 +4,9 @@ import Button from "@material-ui/core/Button";
 import classes from "./ContactForm.module.css";
 import TextField from "@material-ui/core/TextField";
 import Input from '@material-ui/core/Input';
-import img1 from "../../images/form/1.png";
-import img2 from "../../images/form/2.png";
-import img3 from "../../images/form/3.png";
+import img1 from "../../images/Random Images/Free download Hd Wallpapers Russell Westbrook 307 X 512 43 Kb Jpeg.jpg";
+import img2 from "../../images/Random Images/Russell Westbrook Wallpaper for mobile phone tablet desktop.jpg";
+import img3 from "../../images/Random Images/Classic muscle cars wallpaper Everlasting Car.jpg";
 import axios from 'axios'
 import { toast } from 'react-toastify';
 
@@ -22,41 +22,41 @@ const ContactForm = ({ showText }) => {
 
     e.preventDefault();
 
-    // Request body
-    const data = JSON.stringify({
-      firstName,
-      lastName,
-      email,
-      message
-    });
+    // // Request body
+    // const data = JSON.stringify({
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   message
+    // });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Access-Control-Allow-Origin": "*",
+    //   },
+    // };
+
+    // axios
+    //   .post("https://epo-backend.herokuapp.com/api/contact", data, config)
+    //   .then((res) => {
+    //     setData(res.data);
+    //     console.log(res.data);
+    //     setOpen(false)
+    //   })
+    //   .catch((err) => {
+    //     toast.error(err.response.data.msg, {
+      //       position: "bottom-right",
+      //       hideProgressBar: false,
+      //       autoClose: 5000,
+      //       closeOnClick: true,
+      //       pauseOnHover: true,
+      //       draggable: true,
+      //       progress: undefined,
+      //     })
+      //     console.log(err.response.data.msg)});
+           toast.success("Message Sumbitted")
     };
-
-    axios
-      .post("https://epo-backend.herokuapp.com/api/contact", data, config)
-      .then((res) => {
-        setData(res.data);
-        console.log(res.data);
-        setOpen(false)
-        toast.success("Message Sumbitted")
-      })
-      .catch((err) => {
-        toast.error(err.response.data.msg, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-        console.log(err.response.data.msg)});
-  };
 
   
 
