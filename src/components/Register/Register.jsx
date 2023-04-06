@@ -184,9 +184,9 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="https://epo-api.herokuapp.com/admin" target='blank' variant="body2">
+              {/* <Link href="https://epo-api.herokuapp.com/admin" target='blank' variant="body2">
                 Already have an account? Sign in
-              </Link>
+              </Link> */}
             </Grid>
           </Grid>
         </form>

@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 
 export default function Cards({title,description}) {
   const classes = useStyles();
-  const url = "https://epo-api.herokuapp.com"
+  // const url = "https://epo-api.herokuapp.com"
   return (
     <Card style={{height:'100%'}} className={classes.root}>
       <CardActionArea>

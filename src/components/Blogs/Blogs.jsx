@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-  const url = "https://epo-api.herokuapp.com"
+  // const url = "https://epo-api.herokuapp.com"
 
 const Blogs = () => {
   

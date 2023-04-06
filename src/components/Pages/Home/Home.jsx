@@ -13,10 +13,6 @@ const Home = () => {
     <Box >
       <Fade top>
         <Carousel />
-        {/* <Blogs /> */}
-        {/* <Media /> */}
-        {/* <Team /> */}
-        {/* <ContactForm showText={true} /> */}
       </Fade>
     </Box>
   );
