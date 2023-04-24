@@ -1,13 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../../components/Pages/Home/Home"
-import Header from "../../components/Header.jsx"
 import { Box } from "@material-ui/core";
+import SignIn from "../../components/LoginSignup/SignIn";
+import SignUp from "../../components/LoginSignup/SignUp";
 const Router = () => {
   return (
     <Box>
-      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<SignIn />}>
+          {/* <Route path="register" element={< />} />
+           */}
+        </Route>
+        <Route path="signup" element={<SignUp />} />
         {/* <Route path="/test" element={<Test />} />
       <Route path="/job-search" element={<JobSearchPage />} />
       <Route path="/employee-search" element={<EmployeeSearchPage />} />
@@ -57,10 +62,7 @@ const Router = () => {
       <Route path="/WelCome_To_TGL" element={<WelcomePage />} />
       <Route path="/WelCome_To_TGL_Portal" element={<WelcomeOrganization />} />
       <Route path="/WelCome_To_TGL_Portal_Agency" element={<WelcomeAgency />} />
-      <Route path="/registration" element={<Register />}>
-        <Route path="register" element={<SignUp />} />
-        <Route path="login" element={<Login />} />
-      </Route>
+      
 
       <Route path="/employee-dashboard" element={<EmployeeDashboard />}>
         <Route path="" element={<EmployeeDashboardComponent />} />

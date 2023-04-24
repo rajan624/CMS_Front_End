@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 // import {
 //   createUserWithEmailAndPassword,
@@ -18,14 +19,28 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    // const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-    //   const type = await getUserType();
-    //   console.log('got user type',type.data)
-    //   setUser(type.data);
-    // });
-    // return () => {
-    //   unsubscribe();
-    // };
+    const fetchUserProfile = async () => {
+      const token = localStorage.getItem("token");
+      console.log(token)
+      if (!token) {
+        return;
+      }
+      console.log("testing we are token is not working")
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/user/profile`,
+          {
+            headers: { Authorization: `${token}` },
+          }
+        );
+        setUser(response.data.profile);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUserProfile();
+    
   }, []);
   return (
     <UserContext.Provider value={{ ...userType }}>
