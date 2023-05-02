@@ -8,7 +8,21 @@ import { toast } from "react-toastify";
 import { Box, Button, Checkbox, FormControlLabel, Stack, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
-function SignIn() {
+import SignForm from "./SignForm";
+const styles = (theme) => ({
+  textField: {
+    width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    paddingBottom: 0,
+    marginTop: 0,
+    fontWeight: 500,
+  },
+  input: {
+    color: "white",
+  },
+});
+function SignIn({props}) {
   const navigate = useNavigate();
   const {
     register,
@@ -40,16 +54,75 @@ function SignIn() {
 
   
   };
-  const onSuccess = (response) => {
-    const accessToken = response.accessToken;
-  };
-  const onFailure = (error) => {
-    console.log('Google login failed:', error);
-  };
   return (
     <div className="heropanel--video">
-      <div className="container">
-        <main className="signup_container">
+      <SignForm></SignForm>
+      <div className="container1">
+        {/* <div id="loginform">
+          <h2 id="headerTitle">Login</h2>
+          <div>
+            <div class="row">
+              <label>Username</label>
+              <input type="text" placeholder="Enter your username" />
+            </div>
+            <div class="row">
+              <label>Password</label>
+              <TextField
+                InputProps={{
+                  className: styles.input,
+                }}
+                className={styles.textField}
+                {...register("password", {
+                  required: true,
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                error={!!errors?.password}
+                helperText={errors?.password ? errors.password.message : null}
+                type="password"
+              />
+            </div>
+            <div id="button" class="row">
+              <button>Login</button>
+            </div>
+          </div>
+        </div>
+        <div className="welcome_container">
+          <h1 className="heading_secondary">
+            Welcome to <span className="lg">Planner Buddy!</span>
+          </h1>
+          <img src={backgroundImage} alt="" />
+        </div> */}
+      </div>
+    </div>
+  );
+}
+
+export default SignIn;
+
+{
+  /* <div id="alternativeLogin">
+            <label>Or sign in with:</label>
+            <div id="iconGroup">
+              <GoogleLogin
+                clientId="539221818310-ahur6g6dnj7rhjlvivjvait810t1lh2l.apps.googleusercontent.com"
+                buttonText="Login with Google"
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                
+                className="google-login"
+              />
+              <a href="#" id="facebookIcon"></a>
+              <a href="#" id="twitterIcon"></a>
+              <a href="#" id="googleIcon"></a>
+            </div>
+          </div> */
+}
+
+ {
+   /* <main className="signup_container">
           <h1 className="heading_primary">
             Log in<span className="span_blue">.</span>
           </h1>
@@ -114,7 +187,7 @@ function SignIn() {
                   alignItems: "center",
                 }}
               >
-                {/* sx={{ ...itemsCenter }} */}
+                
                 <Box>
                   
                 </Box>
@@ -181,19 +254,93 @@ function SignIn() {
           </Box>
 
      
-        </main>
-        <div className="welcome_container">
-          <h1 className="heading_secondary">
-            Welcome to <span className="lg">Planner Buddy!</span>
-          </h1>
-          <img src={backgroundImage} alt="" />
-        </div>
-      </div>
-    </div>
-  );
-}
+        </main> */
+ }
 
-export default SignIn;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
   /* <FormControlLabel
                     control={
