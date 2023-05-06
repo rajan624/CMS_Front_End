@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../images/images/logo.svg"
 import { GetType } from "../../context/authContext";
+import { Link } from "react-router-dom";
 
 const Header = ({ darkMode, setDarkMode }) => {
   const user = GetType()
@@ -14,9 +15,9 @@ const Header = ({ darkMode, setDarkMode }) => {
       {" "}
       <header class="header section" data-header>
         <div class="container">
-          <a href="#" class="logo">
+          <Link to="/" class="logo">
             <img src={logo} width="129" height="40" alt="Blogy logo" />
-          </a>
+          </Link>
 
           <nav class="navbar" data-navbar>
             <ul class="navbar-list">
@@ -57,9 +58,9 @@ const Header = ({ darkMode, setDarkMode }) => {
               <span class="span three"></span>
             </button>
 
-            <a href="/login" class="btn">
+            <Link to="/login" class="btn">
               Join
-            </a>
+            </Link>
           </div>
         </div>
       </header>

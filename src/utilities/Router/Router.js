@@ -1,18 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../../components/Pages/Home/Home"
 import { Box } from "@material-ui/core";
-import SignIn from "../../components/LoginSignup/SignIn";
-import SignUp from "../../components/LoginSignup/SignUp";
+import SignIn from "../../components/LoginSignUpComponent/SignIn";
+import SignUp from "../../components/LoginSignUpComponent/SignUp";
+import RichTextEditor from "../../components/EditiorComponent/TextEditor.js";
 const Router = () => {
   return (
     <Box>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<SignIn />}>
-          {/* <Route path="register" element={< />} />
-           */}
-        </Route>
-        <Route path="signup" element={<SignUp />} />
+        <Route path="/login" element={<SignIn />}></Route>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/Editor" element={<RichTextEditor />} />
         {/* <Route path="/test" element={<Test />} />
       <Route path="/job-search" element={<JobSearchPage />} />
       <Route path="/employee-search" element={<EmployeeSearchPage />} />

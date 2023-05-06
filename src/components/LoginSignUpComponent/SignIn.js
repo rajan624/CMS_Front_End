@@ -1,14 +1,23 @@
 import React from "react";
-import "./sign.css"
-import GoogleLogin from "react-google-login";
 import { Link, useNavigate } from "react-router-dom";
-import backgroundImage from "../../images/Random Images/denise-jans-laoBHO09sU0-unsplash-fotor-bg-remover-20230408163752.png";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Box, Button, Checkbox, FormControlLabel, Stack, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { LoadingButton } from "@mui/lab";
-import SignForm from "./SignForm";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import loginPageImage from "../../images/Background/ella-jardim-M0zs81FNm6s-unsplash.jpg";
+import loginPageBackGround from "../../images/Background/viktor-forgacs-aPC8ygu3bWA-unsplash.jpg";
+import loginPageBackGroundMobile from "../../images/Background/sean-oulashin-KMn4VEeEPR8-unsplash.jpg";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import logo from "../../images/images/logo.svg"
 const styles = (theme) => ({
   textField: {
     width: "90%",
@@ -22,7 +31,8 @@ const styles = (theme) => ({
     color: "white",
   },
 });
-function SignIn({props}) {
+function SignIn({ props }) {
+  const theme = createTheme();
   const navigate = useNavigate();
   const {
     register,
@@ -55,10 +65,173 @@ function SignIn({props}) {
   
   };
   return (
-    <div className="heropanel--video">
-      <SignForm></SignForm>
-      <div className="container1">
-        {/* <div id="loginform">
+    <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: `url(${loginPageImage})`,
+            backgroundRepeat: "no-repeat",
+            backgroundColor: (t) =>
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <Link style={{marginTop:"4vw" , marginLeft:"4vw"}} to="/" class="logo">
+            <img src={logo} width="129" height="40" alt="Blogy logo" />
+          </Link>
+        </Grid>
+        <Grid
+          sx={{
+            backgroundImage: `url(${loginPageBackGround})`,
+            "@media (max-width: 600px)": {
+              backgroundImage: `url(${loginPageBackGroundMobile})`,
+            },
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          item
+          xs={12}
+          sm={8}
+          md={5}
+          component={Paper}
+          elevation={6}
+          square
+        >
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar
+              sx={{
+                width: "150px",
+                height: "150px",
+                m: 1,
+                bgcolor: "secondary.main",
+              }}
+            >
+              {/* <LockOutlinedIcon /> */}
+            </Avatar>
+            <Typography sx={{ fontSize: "3rem" }} component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{
+                mt: 1,
+                fontSize: "1.5rem",
+              }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                sx={{
+                  fontSize: "1.5rem",
+                  mt: 1,
+                }}
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                InputLabelProps={{
+                  sx: { fontSize: "1.5rem" },
+                }}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                InputLabelProps={{
+                  sx: { fontSize: "1.5rem" },
+                }}
+                sx={{
+                  fontSize: "1.5rem",
+                  mt: 2,
+                }}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label={
+                  <Typography sx={{ fontSize: "1.5rem" }}>
+                    Remember me
+                  </Typography>
+                }
+                sx={{
+                  mt: 2,
+                }}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, fontSize: "1.5rem" }}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link
+                    href="#"
+                    variant="body2"
+                    style={{ fontSize: "1.5rem", color: "#1976d2" }}
+                  >
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link
+                    to="/signup"
+                    variant="body2"
+                    style={{ fontSize: "1.5rem", color: "#1976d2" }}
+                  >
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+              <Box mt={8} />
+              <Typography variant="body2" color="textSecondary" align="center">
+                {"By signing in you agree to our "}
+                <Link color="inherit" href="#">
+                  Terms and Conditions
+                </Link>
+                {" and "}
+                <Link color="inherit" href="#">
+                  Privacy Policy
+                </Link>
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
+}
+
+export default SignIn;
+   {
+     /* <div id="loginform">
           <h2 id="headerTitle">Login</h2>
           <div>
             <div class="row">
@@ -94,13 +267,8 @@ function SignIn({props}) {
             Welcome to <span className="lg">Planner Buddy!</span>
           </h1>
           <img src={backgroundImage} alt="" />
-        </div> */}
-      </div>
-    </div>
-  );
-}
-
-export default SignIn;
+        </div> */
+   }
 
 {
   /* <div id="alternativeLogin">
