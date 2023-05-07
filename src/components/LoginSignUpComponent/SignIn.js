@@ -52,7 +52,7 @@ function SignIn({ props }) {
           reset({})
           console.log(response);
           localStorage.setItem("token", response.data.token);
-
+          
         })
         .catch(function (error) {
           console.log(error);

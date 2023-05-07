@@ -34,9 +34,9 @@ const Header = ({ darkMode, setDarkMode }) => {
               </li>
 
               <li class="navbar-item">
-                <a href="#" class="navbar-link hover:underline" data-nav-link>
-                  Membership
-                </a>
+                <Link to="/editor" class="navbar-link hover:underline" data-nav-link>
+                  Add Article
+                </Link>
               </li>
             </ul>
           </nav>
@@ -57,10 +57,13 @@ const Header = ({ darkMode, setDarkMode }) => {
               <span class="span two"></span>
               <span class="span three"></span>
             </button>
-
-            <Link to="/login" class="btn">
-              Join
-            </Link>
+            {user?.name ?
+              <Link to="#" class="btn">
+                {user.name}
+              </Link> :
+              <Link to="/login" class="btn">
+                Join
+              </Link>}
           </div>
         </div>
       </header>

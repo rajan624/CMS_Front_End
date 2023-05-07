@@ -33,14 +33,17 @@ function SignUp() {
 
   const onSubmit = async (data) => {
     console.log(process.env.REACT_APP_API_URL);
+    console.log(data)
     try {
       
-      await axios.post(`${process.env.REACT_APP_API_URL}/user/register` ,data)
+      await axios.post(`${process.env.REACT_APP_API_URL}/user/registerAuthor` ,data)
         .then(function (response) {
           toast.success("Sign Up Successfully")
-          reset({})
+          // reset({})
           console.log(response);
           localStorage.setItem("token", response.data.token);
+          navigate("/",{ replace: true })
+          window.location.reload();
          })
          .catch(function (error) {
            // handle error
@@ -110,15 +113,14 @@ function SignUp() {
                 m: 0,
                 bgcolor: "secondary.main",
               }}
-            >
-            </Avatar>
+            ></Avatar>
             <Typography sx={{ fontSize: "3rem" }} component="h1" variant="h5">
               Sign Up
             </Typography>
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(onSubmit)}
               sx={{
                 mt: 1,
                 fontSize: "1.5rem",
@@ -136,6 +138,11 @@ function SignUp() {
                 type="text"
                 name="name"
                 autoComplete="name"
+                {...register("name", {
+                  required: true,
+                })}
+                error={!!errors?.name}
+                helperText={errors?.name ? errors.name.message : null}
                 autoFocus
                 InputLabelProps={{
                   sx: { fontSize: "1.5rem" },
@@ -151,6 +158,15 @@ function SignUp() {
                 }}
                 id="email"
                 label="Email Address"
+                {...register("email", {
+                  required: true,
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "invalid email address",
+                  },
+                })}
+                error={!!errors?.email}
+                helperText={errors?.email ? errors.email.message : null}
                 name="email"
                 type="email"
                 autoComplete="email"
@@ -169,8 +185,15 @@ function SignUp() {
                 }}
                 id="phone"
                 label="Phone No"
+                {...register("phone", {
+                  required: true,
+                  maxLength: 12,
+                  minLength: 10,
+                })}
+                error={!!errors?.phone}
+                helperText={errors?.phone ? errors.phone.message : null}
                 name="phone"
-                type="phone"
+                type="tel"
                 autoComplete="phone"
                 autoFocus
                 InputLabelProps={{
@@ -184,6 +207,15 @@ function SignUp() {
                 name="password"
                 label="Password"
                 type="password"
+                {...register("password", {
+                  required: true,
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                error={!!errors?.password}
+                helperText={errors?.password ? errors.password.message : null}
                 id="password"
                 autoComplete="current-password"
                 InputLabelProps={{
@@ -200,6 +232,19 @@ function SignUp() {
                 fullWidth
                 name="confirmPassword"
                 label="Confirm Password"
+                {...register("confirmPassword", {
+                  required: true,
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                error={!!errors?.confirmPassword}
+                helperText={
+                  errors?.confirmPassword
+                    ? errors.confirmPassword.message
+                    : null
+                }
                 type="password"
                 id="confirmPassword"
                 autoComplete="current-password"
@@ -213,7 +258,13 @@ function SignUp() {
               />
 
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={
+                  <Checkbox
+                    {...register("emailNotification")}
+                    value={true}
+                    color="primary"
+                  />
+                }
                 label={
                   <Typography sx={{ fontSize: "1.5rem" }}>
                     I want to receive inspiration, marketing promotions and
@@ -233,8 +284,7 @@ function SignUp() {
                 Sign Up
               </Button>
               <Grid container>
-                <Grid item xs>
-                </Grid>
+                <Grid item xs></Grid>
                 <Grid item>
                   <Link
                     to="/login"
