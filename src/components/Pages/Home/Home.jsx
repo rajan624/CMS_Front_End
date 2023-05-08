@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../Header/Header";
 import featured_1 from "../../../images/images/featured-1.jpg"
 import featured_2 from "../../../images/images/featured-2.jpg"
@@ -25,6 +25,9 @@ import recent_4 from "../../../images/images/recent-4.jpg";
 import recent_5 from "../../../images/images/recent-5.jpg";
 import recent_6 from "../../../images/images/recent-6.jpg";
 import Footer from "../../Footer/Footer";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { GetType } from "../../../context/authContext";
 
 const CustomHeightstyles500 = {
   "--height": "600px",
@@ -43,6 +46,32 @@ const CustomHeightstyles100 = {
   "--width": "100px",
 };
 const Home = () => {
+  const [email, setEmail] = useState("");
+   const user = GetType()
+  const [subscribed , setSubscribed] = useState(true)
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    // code to submit the form data
+    console.log(email);
+    const data = {
+      email : email
+    }
+      try {
+      await axios
+        .post(`${process.env.REACT_APP_API_URL}/user/registerSubscriber`, data)
+        .then(function (response) {
+          toast.success(response.data.msg);
+          console.log(response);
+          setSubscribed(false)
+        })
+        .catch(function (error) {
+          console.log(error);
+          toast.error(error.response.data.msg);
+        });
+    } catch (error) {
+      console.log(error.response.data.msg);      
+    }
+  };
   
   return (
     <>
@@ -56,26 +85,34 @@ const Home = () => {
                 <strong class="strong">Hey, we’re Blogy.</strong> See our
                 thoughts, stories and ideas.
               </h1>
+              {subscribed && !user?.email ? (
+                <div class="wrapper">
+                  <form onSubmit={handleSubmit} className="newsletter-form">
+                    <input
+                      type="email"
+                      name="email_address"
+                      placeholder="Your email address"
+                      className="email-field"
+                      required
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                    />
 
-              <div class="wrapper">
-                <form action="" class="newsletter-form">
-                  <input
-                    type="email"
-                    name="email_address"
-                    placeholder="Your email address"
-                    class="email-field"
-                  />
+                    <button type="submit" className="btn">
+                      Subscribe
+                    </button>
+                  </form>
 
-                  <button type="submit" class="btn">
-                    Subscribe
-                  </button>
-                </form>
-
-                <p class="newsletter-text">
-                  Get the email newsletter and unlock access to members-only
-                  content and updates
-                </p>
-              </div>
+                  <p class="newsletter-text">
+                    Get the email newsletter and unlock access to members-only
+                    content and updates
+                  </p>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </section>
           <section class="section featured" aria-label="featured post">
@@ -1466,30 +1503,30 @@ const Home = () => {
               </ul>
             </div>
           </section>
+          {subscribed && !user?.email ? (
+            <section class="section newsletter">
+              <h2 class="h2 section-title">
+                Subscribe to <strong class="strong">new posts</strong>
+              </h2>
 
-          <section class="section newsletter">
-            <h2 class="h2 section-title">
-              Subscribe to <strong class="strong">new posts</strong>
-            </h2>
+              <form action="" class="newsletter-form">
+                <input
+                  type="email"
+                  name="email_address"
+                  placeholder="Your email address"
+                  required
+                  class="email-field"
+                />
 
-            <form action="" class="newsletter-form">
-              <input
-                type="email"
-                name="email_address"
-                placeholder="Your email address"
-                required
-                class="email-field"
-              />
-
-              <button type="submit" class="btn">
-                Subscribe
-              </button>
-            </form>
-          </section>
+                <button type="submit" class="btn">
+                  Subscribe
+                </button>
+              </form>
+            </section>) : <></>}
         </article>
       </main>
-      
-  <Footer></Footer>
+
+      <Footer></Footer>
     </>
   );
 };

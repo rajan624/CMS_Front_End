@@ -52,7 +52,8 @@ function SignIn({ props }) {
           reset({})
           console.log(response);
           localStorage.setItem("token", response.data.token);
-          
+          navigate("/", { replace: true });
+          window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
@@ -84,7 +85,11 @@ function SignIn({ props }) {
             backgroundPosition: "center",
           }}
         >
-          <Link style={{marginTop:"4vw" , marginLeft:"4vw"}} to="/" class="logo">
+          <Link
+            style={{ marginTop: "4vw", marginLeft: "4vw" }}
+            to="/"
+            class="logo"
+          >
             <img src={logo} width="129" height="40" alt="Blogy logo" />
           </Link>
         </Grid>
@@ -131,7 +136,7 @@ function SignIn({ props }) {
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(onSubmit)}
               sx={{
                 mt: 1,
                 fontSize: "1.5rem",
@@ -149,6 +154,15 @@ function SignIn({ props }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                {...register("email", {
+                  required: true,
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "invalid email address",
+                  },
+                })}
+                error={!!errors?.email}
+                helperText={errors?.email ? errors.email.message : null}
                 autoFocus
                 InputLabelProps={{
                   sx: { fontSize: "1.5rem" },
@@ -163,6 +177,15 @@ function SignIn({ props }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                {...register("password", {
+                  required: true,
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                error={!!errors?.password}
+                helperText={errors?.password ? errors.password.message : null}
                 InputLabelProps={{
                   sx: { fontSize: "1.5rem" },
                 }}
