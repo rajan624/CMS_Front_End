@@ -124,6 +124,7 @@ function SignUp() {
               sx={{
                 mt: 1,
                 fontSize: "1.5rem",
+                
               }}
             >
               <TextField
