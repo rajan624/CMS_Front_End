@@ -85,13 +85,13 @@ function SignIn({ props }) {
             backgroundPosition: "center",
           }}
         >
-          <Link
+          {/* <Link
             style={{ marginTop: "4vw", marginLeft: "4vw" }}
             to="/"
             class="logo"
           >
             <img src={logo} width="129" height="40" alt="Blogy logo" />
-          </Link>
+          </Link> */}
         </Grid>
         <Grid
           sx={{

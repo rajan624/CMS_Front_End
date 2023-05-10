@@ -4,6 +4,7 @@ import { Box } from "@material-ui/core";
 import SignIn from "../../components/LoginSignUpComponent/SignIn";
 import SignUp from "../../components/LoginSignUpComponent/SignUp";
 import RichTextEditor from "../../components/EditiorComponent/TextEditor.js";
+import PageNotFound from "../../components/PageNotFound/PageNotFound";
 const Router = () => {
   return (
     <Box>
@@ -12,7 +13,15 @@ const Router = () => {
         <Route path="/login" element={<SignIn />}></Route>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/Editor" element={<RichTextEditor />} />
-        {/* <Route path="/test" element={<Test />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </Box>
+  );
+};
+
+export default Router;
+ {
+   /* <Route path="/test" element={<Test />} />
       <Route path="/job-search" element={<JobSearchPage />} />
       <Route path="/employee-search" element={<EmployeeSearchPage />} />
       <Route path="/job-profile" element={<JobProfile />}>
@@ -262,10 +271,5 @@ const Router = () => {
         path="/loading-search-components"
         element={<LoadingSearchComponents />}
       />
-      <Route path="/message" element={<MessageDefaultScreen />} /> */}
-      </Routes>
-    </Box>
-  );
-};
-
-export default Router;
+      <Route path="/message" element={<MessageDefaultScreen />} /> */
+ }

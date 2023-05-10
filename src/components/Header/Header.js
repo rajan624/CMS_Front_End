@@ -15,13 +15,34 @@ import { styled, alpha } from "@mui/material/styles";
 import logo from "../../images/images/logo.svg"
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { GetType } from "../../context/authContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { Button } from "@mui/material";
+import { Button, Grid, Input, Modal, Stack, TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalContent: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2),
+    outline: "none",
+    width: "90%",
+    maxWidth: 400,
+    [theme.breakpoints.up("sm")]: {
+      width: "50%",
+    },
+  },
+}));
 const pages = ["Home", "Add Article", "Recent Post", "My Article"];
-const settings = ["Profile",  "Logout"];
+const settings = ["Profile", "Logout"];
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -31,6 +52,24 @@ const theme = createTheme({
   },
 });
 const Header = ({ darkMode, setDarkMode }) => {
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setOpen(false);
+    };
+  const navigate = useNavigate()
   const user = GetType()
 
   useEffect(() => {
@@ -38,14 +77,13 @@ const Header = ({ darkMode, setDarkMode }) => {
   }, [user])
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+   const [image, setImage] = React.useState("");
 
   const handleOpenNavMenu = (event) => {
     console.log("we are testing three");
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
-    console.log("we are testing two");
-    console.log(event)
     setAnchorElUser(event.currentTarget);
   };
 
@@ -58,6 +96,21 @@ const Header = ({ darkMode, setDarkMode }) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const profileMenu = (value) => {
+    console.log(value)
+    if (value == "Logout") {
+     localStorage.removeItem("token");
+ navigate("/", { replace: true });
+ window.location.reload();
+    } else if (value == "Add Article") {
+      if (user?.email) {
+        //  navigate("/Editor");
+        handleOpen()
+      } else {
+         navigate("/login");
+      }
+    }
+  }
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -158,19 +211,49 @@ const Header = ({ darkMode, setDarkMode }) => {
                   color: "#000",
                 }}
               >
-                {pages.map((page) => (
+                <MenuItem
+                  onClick={() => {
+                    profileMenu("Home");
+                  }}
+                >
+                  <Typography sx={{ color: "#000" }} textAlign="center">
+                    Home
+                  </Typography>
+                </MenuItem>
+
+                <MenuItem
+                  onClick={() => {
+                    profileMenu("Add Article");
+                  }}
+                >
+                  <Typography sx={{ color: "#000" }} textAlign="center">
+                    Add Article
+                  </Typography>
+                </MenuItem>
+
+                <MenuItem
+                  onClick={() => {
+                    profileMenu("Recent Post");
+                  }}
+                >
+                  <Typography sx={{ color: "#000" }} textAlign="center">
+                    Recent Post
+                  </Typography>
+                </MenuItem>
+
+                {user?.email ? (
                   <MenuItem
-                    key={page}
-                    value={page}
                     onClick={() => {
-                      handleCloseNavMenu(page);
+                      profileMenu("My Article");
                     }}
                   >
                     <Typography sx={{ color: "#000" }} textAlign="center">
-                      {page}
+                      My Article
                     </Typography>
                   </MenuItem>
-                ))}
+                ) : (
+                  <></>
+                )}
                 <Search>
                   <SearchIconWrapper>
                     <SearchIcon />
@@ -202,11 +285,55 @@ const Header = ({ darkMode, setDarkMode }) => {
               </Link>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
+              <Button
+                onClick={() => {
+                  profileMenu("Home");
+                }}
+                sx={{
+                  my: 2,
+                  mr: 2,
+                  color: "#000",
+                  fontWeight: 600,
+                  fontSize: "1.5rem",
+                  display: "block",
+                }}
+              >
+                Home
+              </Button>
+              <Button
+                onClick={() => {
+                  profileMenu("Add Article");
+                }}
+                sx={{
+                  my: 2,
+                  mr: 2,
+                  color: "#000",
+                  fontWeight: 600,
+                  fontSize: "1.5rem",
+                  display: "block",
+                }}
+              >
+                Add Article
+              </Button>
+              <Button
+                onClick={() => {
+                  profileMenu("Recent Post");
+                }}
+                sx={{
+                  my: 2,
+                  mr: 2,
+                  color: "#000",
+                  fontWeight: 600,
+                  fontSize: "1.5rem",
+                  display: "block",
+                }}
+              >
+                Recent Post
+              </Button>
+              {user?.email ? (
                 <Button
-                  key={page}
                   onClick={() => {
-                    handleCloseNavMenu(page);
+                    profileMenu("Recent Post");
                   }}
                   sx={{
                     my: 2,
@@ -217,9 +344,11 @@ const Header = ({ darkMode, setDarkMode }) => {
                     display: "block",
                   }}
                 >
-                  {page}
+                  My Article
                 </Button>
-              ))}
+              ) : (
+                <></>
+              )}
               <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
@@ -260,7 +389,12 @@ const Header = ({ darkMode, setDarkMode }) => {
                     onClose={handleCloseUserMenu}
                   >
                     {settings.map((setting) => (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <MenuItem
+                        key={setting}
+                        onClick={() => {
+                          profileMenu(setting);
+                        }}
+                      >
                         <Typography textAlign="center">{setting}</Typography>
                       </MenuItem>
                     ))}
@@ -275,6 +409,124 @@ const Header = ({ darkMode, setDarkMode }) => {
           </Toolbar>
         </Container>
       </AppBar>
+      {/* <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        className={classes.modal}
+      >
+        <div className={classes.modalContent}>
+          <h2 id="modal-title">Add Article</h2>
+          <Box sx={{ width: "100%" }}>
+            <Typography
+              sx={{
+                color: "#000",
+                fontFamily: "Sofia Pro",
+                fontSize: "18px",
+                fontWeight: 500,
+              }}
+            >
+              Banner Image
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                alignItems: { xs: "center", md: "end" },
+                gap: { xs: "15px", md: "30px" },
+                mt: "20px",
+              }}
+            >
+              <Box
+                sx={{
+                  width: { xs: "100%", md: "100%" },
+                  height: { xs: "100%", md: "100%" },
+                }}
+              >
+                <Avatar
+                  // src={image ? URL.createObjectURL(image) : user?.displayImage}
+                  sx={{ width: "100%", height: "100%", borderRadius: "0%" }}
+                ></Avatar>
+              </Box>
+              <Box>
+                <label htmlFor="contained-button-file">
+                  <Input
+                    
+                    accept="image/*"
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    sx={{ display: "none" }}
+                  />
+                  <Button
+                    variant="contained"
+                    component="span"
+                    sx={{
+                      textTransform: "none",
+                      fontSize: { xs: "8px", md: "14px" },
+                      fontFamily: "Sofia Pro",
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      padding: { xs: "10px 20px", md: "15px 30px" },
+                      borderRadius: "8px",
+                      border: "1px solid black",
+                      mt: "30px",
+                      "&:hover": {
+                        backgroundColor: "#fff",
+                        border: "1px solid black",
+                        color: "#000",
+                      },
+                    }}
+                  >
+                    Upload Photo
+                  </Button>
+                </label>
+              </Box>
+            </Box>
+          </Box>
+
+          <Stack spacing={4} sx={{ mt: "50px" }}>
+            <Box sx={{ width: "100%" }}>
+              <Grid
+                container
+                rowSpacing={3}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              >
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ width: "100%" }}>
+                    <Typography
+                      sx={{
+                        color: "#202124",
+                        fontFamily: "Sofia Pro",
+                        fontSize: "15px",
+                      }}
+                    >
+                      First Name*
+                    </Typography>
+                    <TextField
+                      {...register("firstName", {
+                        required: "First Name is required",
+                      })}
+                      error={Boolean(errors.firstName)}
+                      helperText={errors.firstName && errors.firstName.message}
+                      id="outlined-basic"
+                      variant="outlined"
+                      sx={{ width: "100%", mt: "10px" }}
+                    />
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </Stack>
+
+          <Button variant="contained" color="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </div>
+      </Modal> */}
     </ThemeProvider>
   );
 }
