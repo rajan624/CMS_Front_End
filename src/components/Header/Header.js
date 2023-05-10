@@ -40,13 +40,18 @@ const Header = ({ darkMode, setDarkMode }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
+    console.log("we are testing three");
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
+    console.log("we are testing two");
+    console.log(event)
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (value) => {
+    console.log("we are testing one")
+    console.log(value);
     setAnchorElNav(null);
   };
 
@@ -104,7 +109,6 @@ const Header = ({ darkMode, setDarkMode }) => {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
             <Typography
               variant="h6"
               noWrap
@@ -122,7 +126,6 @@ const Header = ({ darkMode, setDarkMode }) => {
               <Link to="/" class="logo">
                 <img src={logo} width="129" height="40" alt="Blogy logo" />
               </Link>
-              {/* <img src={logo} width="129" height="40" alt="Blogy logo" /> */}
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -156,7 +159,13 @@ const Header = ({ darkMode, setDarkMode }) => {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <MenuItem
+                    key={page}
+                    value={page}
+                    onClick={() => {
+                      handleCloseNavMenu(page);
+                    }}
+                  >
                     <Typography sx={{ color: "#000" }} textAlign="center">
                       {page}
                     </Typography>
@@ -196,7 +205,9 @@ const Header = ({ darkMode, setDarkMode }) => {
               {pages.map((page) => (
                 <Button
                   key={page}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => {
+                    handleCloseNavMenu(page);
+                  }}
                   sx={{
                     my: 2,
                     mr: 2,
@@ -223,44 +234,43 @@ const Header = ({ darkMode, setDarkMode }) => {
             <Box sx={{ flexGrow: 0 }}>
               {user?.name ? (
                 <>
-                <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    sx={{ backgroundColor: "#000" }}
-                    alt={user.name}
-                    src="/static/images/avatar/2.jpg"
-                  />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar
+                        sx={{ backgroundColor: "#000" }}
+                        alt={user.name}
+                        src="/static/images/avatar/2.jpg"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting) => (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
                 </>
               ) : (
-                  <Link style={{padding:"0.5vw 2vw"}}    to="/login" class="btn1">
+                <Link style={{ padding: "0.5vw 2vw" }} to="/login" class="btn1">
                   Join
                 </Link>
               )}
-              
             </Box>
           </Toolbar>
         </Container>
