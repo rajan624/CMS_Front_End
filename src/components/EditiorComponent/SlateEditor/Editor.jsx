@@ -57,7 +57,8 @@ const SlateEditor = ()=>{
     
     return (
         <Slate editor = {editor} value = {value} onChange = {handleEditorChange} >
-                <Toolbar handleCodeToText={handleCodeToText}  />
+            <Toolbar handleCodeToText={handleCodeToText} />
+            <button onClick={()=>{console.log(value);}}>asas</button>
                 <div className="editor-wrapper" style={{border:'1px solid #f3f3f3',padding:'0 10px'}}>
                     <Editable
                         placeholder='Write something'

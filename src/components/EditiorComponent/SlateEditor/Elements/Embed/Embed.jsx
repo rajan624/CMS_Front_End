@@ -36,8 +36,25 @@ const Embed = ({editor,format}) =>{
             alt:''
         })
     }
-    const handleImageUpload = ()=>{
-        setShowInput(false)
+    const handleImageUpload = () => {
+      // Create an input element of type "file"
+      const input = document.createElement("input");
+      input.type = "file";
+
+      // Add event listener to handle file selection
+      input.addEventListener("change", (event) => {
+        const file = event.target.files[0]; // Get the selected file
+
+        // Perform further operations with the selected file
+        // For example, you can upload it to a server or display it on the page
+
+        // For demonstration purposes, let's log the file details to the console
+        console.log("Selected file:", file);
+      });
+
+      // Trigger the file selection dialog
+      input.click();
+      setShowInput(false);
     }
     return (
         <div ref={urlInputRef} className='popup-wrapper'>

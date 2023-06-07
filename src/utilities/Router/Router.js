@@ -5,6 +5,7 @@ import SignIn from "../../components/LoginSignUpComponent/SignIn";
 import SignUp from "../../components/LoginSignUpComponent/SignUp";
 import RichTextEditor from "../../components/EditiorComponent/TextEditor.js";
 import PageNotFound from "../../components/PageNotFound/PageNotFound";
+import Testing from "../../components/EditiorComponent/Testing";
 const Router = () => {
   return (
     <Box>
@@ -13,6 +14,7 @@ const Router = () => {
         <Route path="/login" element={<SignIn />}></Route>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/Editor" element={<RichTextEditor />} />
+        <Route path="/or" element={<Testing />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Box>

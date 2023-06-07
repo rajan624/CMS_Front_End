@@ -6,13 +6,9 @@ import { Box } from "@mui/material";
 const TextEditor = () => {
   return (
     <>
-      {" "}
       <Box
         sx={{
           backgroundImage: `url(${backGround})`,
-          // "@media (max-width: 600px)": {
-          //   backgroundImage: `url(${loginPageBackGroundMobile})`,
-          // },
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
