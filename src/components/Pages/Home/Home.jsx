@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import { GetType } from "../../../context/authContext";
@@ -7,8 +7,13 @@ import HeaderSubscriberForm from "../../Form/HeaderSubscriberForm";
 import RecommendedCard from "../../Card/RecommendedCard";
 import RecentCard from "../../Card/RecentCard";
 import FeaturedCard from "../../Card/FeaturedCard";
+import AddBlogForm from "../../Form/AddBlogForm";
+import { Modal } from "@mui/material";
 const Home = () => {
   const user = GetType();
+   const [open, setOpen] = useState(false);
+   const handleOpen = () => setOpen(true);
+   const handleClose = () => setOpen(false);
   return (
     <>
       <Header />
@@ -21,21 +26,25 @@ const Home = () => {
                 <strong class="strong">Hey, we’re Blogy.</strong> See our
                 thoughts, stories and ideas.
               </h1>
-              { !user?.email ? (
-               <HeaderSubscriberForm/>
-              ) : (
-                <></>
-              )}
+              {!user?.email ? <HeaderSubscriberForm /> : <></>}
             </div>
           </section>
-          <FeaturedCard/>
-          <RecentCard/>
-          <RecommendedCard/>
-          {!user?.email ? <BottomSubscriberForm/> : <></>}
+          <FeaturedCard />
+          <RecentCard />
+          <RecommendedCard />
+          {!user?.email ? <BottomSubscriberForm /> : <></>}
         </article>
       </main>
 
       <Footer></Footer>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <AddBlogForm/>
+      </Modal>
     </>
   );
 };

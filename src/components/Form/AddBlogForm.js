@@ -1,13 +1,27 @@
 import { Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
-import classes from "./ContactForm.module.css";
 import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Box, Grid } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { Stack } from "react-bootstrap";
+import { LoadingButton } from "@mui/lab";
 
 const AddBlogForm = () => {
+    const [image, setImage] = useState("");
+    const [ProfileLogo, setProfileLogo] = useState("");
+    const [loading, setLoading] = useState("");
+
+    const {
+      register,
+      handleSubmit,
+      setValue,
+      formState: { errors },
+      reset,
+    } = useForm();
 
   const handelSubmit = (e) => {
     e.preventDefault();
@@ -60,7 +74,7 @@ const AddBlogForm = () => {
       }}
       component={"form"}
       noValidate
-      onSubmit={handleSubmit2(onSubmitTest)}
+      onSubmit={handleSubmit(handelSubmit)}
     >
       <Typography
         sx={{
@@ -97,7 +111,7 @@ const AddBlogForm = () => {
               type="file"
               sx={{ display: "none" }}
               onChange={(e) => {
-                handleFileChange(e.target.files[0]);
+                // handleFileChange(e.target.files[0]);
               }}
             />
             <Button
@@ -153,9 +167,9 @@ const AddBlogForm = () => {
                 //    label="John"
                 variant="outlined"
                 sx={{ width: "100%", mt: "10px" }}
-                {...register2("name", { required: "Name is required" })}
-                error={Boolean(errors2.name)}
-                helperText={errors2.name && errors2.name.message}
+                {...register("name", { required: "Name is required" })}
+                error={Boolean(errors.name)}
+                helperText={errors.name && errors.name.message}
               />
             </Box>
           </Grid>
@@ -175,11 +189,11 @@ const AddBlogForm = () => {
                 //  label="plumber"
                 variant="outlined"
                 sx={{ width: "100%", mt: "10px" }}
-                {...register2("occupation", {
+                {...register("occupation", {
                   required: "Occupation is required",
                 })}
-                error={Boolean(errors2.occupation)}
-                helperText={errors2.occupation && errors2.occupation.message}
+                error={Boolean(errors.occupation)}
+                helperText={errors.occupation && errors.occupation.message}
               />
             </Box>
           </Grid>
@@ -200,11 +214,11 @@ const AddBlogForm = () => {
                 // label="Great quality!"
                 variant="outlined"
                 sx={{ width: "100%", mt: "10px" }}
-                {...register2("tagLine", {
+                {...register("tagLine", {
                   required: "Tag Line is required",
                 })}
-                error={Boolean(errors2.tagLine)}
-                helperText={errors2.tagLine && errors2.tagLine.message}
+                error={Boolean(errors.tagLine)}
+                helperText={errors.tagLine && errors.tagLine.message}
               />
             </Box>
             <Box>
@@ -256,11 +270,11 @@ const AddBlogForm = () => {
                   fontFamily: "Sofia Pro",
                   fontSize: "15px",
                 }}
-                {...register2("description", {
+                {...register("description", {
                   required: "Description is required",
                 })}
-                error={Boolean(errors2.description)}
-                helperText={errors2.description && errors2.description.message}
+                error={Boolean(errors.description)}
+                helperText={errors.description && errors.description.message}
               />
             </Box>
           </Grid>
