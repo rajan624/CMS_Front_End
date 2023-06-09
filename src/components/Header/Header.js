@@ -104,7 +104,7 @@ const Header = ({ darkMode, setDarkMode }) => {
  window.location.reload();
     } else if (value == "Add Article") {
       if (user?.email) {
-        //  navigate("/Editor");
+         navigate("/Editor");
         handleOpen()
       } else {
          navigate("/login");
