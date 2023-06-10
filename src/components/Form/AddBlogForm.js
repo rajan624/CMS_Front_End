@@ -8,20 +8,20 @@ import { toast } from "react-toastify";
 import { Box, Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Stack } from "react-bootstrap";
-import { LoadingButton } from "@mui/lab";
+import classes from "./AddBlogForm.module.css";
 
 const AddBlogForm = () => {
-    const [image, setImage] = useState("");
-    const [ProfileLogo, setProfileLogo] = useState("");
-    const [loading, setLoading] = useState("");
+  const [image, setImage] = useState("");
+  const [ProfileLogo, setProfileLogo] = useState("");
+  const [loading, setLoading] = useState("");
 
-    const {
-      register,
-      handleSubmit,
-      setValue,
-      formState: { errors },
-      reset,
-    } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const handelSubmit = (e) => {
     e.preventDefault();
@@ -66,84 +66,52 @@ const AddBlogForm = () => {
     <Box
       sx={{
         width: "100%",
-        padding: "30px 20px",
+        padding: "10px",
         backgroundColor: "#fff",
-        boxShadow: "0px 20px 60px rgba(71, 119, 54, 0.15)",
         borderRadius: "8px",
       }}
       component={"form"}
       noValidate
       onSubmit={handleSubmit(handelSubmit)}
     >
-      <Typography
-        sx={{
-          fontSize: "18px",
-          fontWeight: 500,
-        }}
-      >
-        Add Blog
-      </Typography>
+      <h2 className={"Heading2"}>
+        Add Blog<span>Share Your thoughts</span>
+      </h2>
 
       <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: "30px",
-          mt: "20px",
-        }}
+      // sx={{
+      //   alignItems: "center",
+      // }}
       >
-        <Box>
-          <img
-            style={{ width: "87px", height: "87px", borderRadius: "50%" }}
-            src={image ? URL.createObjectURL(image) : ProfileLogo}
-            alt=""
-          />
-        </Box>
-        <Box>
-          <label htmlFor="contained-button-file">
-            <Input
-              accept="image/*"
-              id="contained-button-file"
-              multiple
-              type="file"
-              sx={{ display: "none" }}
-              onChange={(e) => {
-                // handleFileChange(e.target.files[0]);
-              }}
-            />
-            <Button
-              variant="contained"
-              component="span"
-              sx={{
-                textTransform: "none",
-                fontSize: "14px",
-                fontFamily: "Sofia Pro",
-                backgroundColor: "#25C027",
-                color: "#fff",
-                padding: "15px 30px",
-                borderRadius: "8px",
-                mt: "30px",
-                "&:hover": {
-                  backgroundColor: "#25C027",
-                },
-              }}
-            >
-              Upload Photo
-            </Button>
-          </label>
-
-          <Typography
-            sx={{
-              color: "#696969",
-              fontFamily: "Sofia Pro",
-              fontSize: "14px",
-              mt: "30px",
-            }}
-          >
-            Max file size is 1MB, Minimum dimension: 330x300 And Suitable files
-            are .jpg & .png
-          </Typography>
-        </Box>
+        <div className={classes.container}>
+          <div htmlFor="thumbnail-image" className={classes.card}>
+            <div className={classes.drop_box}>
+              <header>
+                <h4>Upload Thumbnail</h4>
+              </header>
+              <p>Files Supported: img , jpeg</p>
+              <button className={classes.btn2}>Choose Image</button>
+            </div>
+          </div>
+              <input
+                type="image"
+                hidden
+                accept=".img,.jpeg"
+                id="thumbnail-image"
+                style={{ display: "none" }}
+              />
+        </div>
+        <Typography
+          sx={{
+            color: "#696969",
+            fontFamily: "Sofia Pro",
+            fontSize: "14px",
+            mt: "30px",
+          }}
+        >
+          Max file size is 1MB, Minimum dimension: 330x300 And Suitable files
+          are .jpg & .png
+        </Typography>
       </Box>
 
       <Stack spacing={4} sx={{ mt: "50px" }}>
@@ -219,26 +187,13 @@ const AddBlogForm = () => {
               />
             </Box>
             <Box>
-              <LoadingButton
-                sx={{
-                  width: "150px",
-                  textTransform: "none",
-                  fontSize: "14px",
-                  fontFamily: "Sofia Pro",
-                  backgroundColor: "#25C027",
-                  color: "#fff",
-                  padding: "15px 40px",
-                  borderRadius: "8px",
-                  mt: "30px",
-                  "&:hover": {
-                    backgroundColor: "#25C027",
-                  },
-                }}
+              <button
                 type="submit"
                 loading={loading}
+                className={"Black-button"}
               >
                 Add
-              </LoadingButton>
+              </button>
             </Box>
           </Grid>
 
@@ -282,3 +237,35 @@ const AddBlogForm = () => {
 };
 
 export default AddBlogForm;
+
+
+//  <Box>
+//    <label htmlFor="contained-button-file"></label>
+//  </Box>;
+   {
+     /* <img
+            style={{ width: "70vw", height: "30vh", borderRadius: "32px" }}
+            src={image ? URL.createObjectURL(image) : ProfileLogo}
+            alt=""
+          /> */
+}
+   
+  {
+    /* <Input
+              accept="image/*"
+              id="contained-button-file"
+              multiple
+              type="file"
+              sx={{ display: "none" }}
+              onChange={(e) => {
+                // handleFileChange(e.target.files[0]);
+              }}
+            /> */
+  }
+  {
+    /* <button
+              className={"Black-button"}
+            >
+              Upload Photo
+            </button> */
+  }
