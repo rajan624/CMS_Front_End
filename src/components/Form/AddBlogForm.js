@@ -66,7 +66,6 @@ const AddBlogForm = () => {
     <Box
       sx={{
         width: "100%",
-        mt: "30px",
         padding: "30px 20px",
         backgroundColor: "#fff",
         boxShadow: "0px 20px 60px rgba(71, 119, 54, 0.15)",
@@ -78,13 +77,11 @@ const AddBlogForm = () => {
     >
       <Typography
         sx={{
-          color: "",
-          fontFamily: "Sofia Pro",
           fontSize: "18px",
           fontWeight: 500,
         }}
       >
-        Testimonial
+        Add Blog
       </Typography>
 
       <Box

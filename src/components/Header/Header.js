@@ -10,18 +10,27 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import AddBlogForm from "../Form/AddBlogForm"
 import { styled, alpha } from "@mui/material/styles";
 import logo from "../../images/images/logo.svg"
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { GetType } from "../../context/authContext";
+import { GetType } from "../../utilities/context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Button, Grid, Input, Modal, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
-
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -104,7 +113,7 @@ const Header = ({ darkMode, setDarkMode }) => {
  window.location.reload();
     } else if (value == "Add Article") {
       if (user?.email) {
-         navigate("/Editor");
+        //  navigate("/Editor");
         handleOpen()
       } else {
          navigate("/login");
@@ -157,180 +166,165 @@ const Header = ({ darkMode, setDarkMode }) => {
     },
   }));
   return (
-    <ThemeProvider theme={theme}>
-      {" "}
-      <AppBar position="static">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              <Link to="/" class="logo">
-                <img src={logo} width="129" height="40" alt="Blogy logo" />
-              </Link>
-            </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
+    <>
+      <ThemeProvider theme={theme}>
+        {" "}
+        <AppBar position="static">
+          <Container maxWidth="xl">
+            <Toolbar disableGutters>
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
                 sx={{
-                  display: { xs: "block", md: "none" },
-                  color: "#000",
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
                 }}
               >
-                <MenuItem
-                  onClick={() => {
-                    profileMenu("Home");
+                <Link to="/" class="logo">
+                  <img src={logo} width="129" height="40" alt="Blogy logo" />
+                </Link>
+              </Typography>
+
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: "block", md: "none" },
+                    color: "#000",
                   }}
                 >
-                  <Typography sx={{ color: "#000" }} textAlign="center">
-                    Home
-                  </Typography>
-                </MenuItem>
-
-                <MenuItem
-                  onClick={() => {
-                    profileMenu("Add Article");
-                  }}
-                >
-                  <Typography sx={{ color: "#000" }} textAlign="center">
-                    Add Article
-                  </Typography>
-                </MenuItem>
-
-                <MenuItem
-                  onClick={() => {
-                    profileMenu("Recent Post");
-                  }}
-                >
-                  <Typography sx={{ color: "#000" }} textAlign="center">
-                    Recent Post
-                  </Typography>
-                </MenuItem>
-
-                {user?.email ? (
                   <MenuItem
                     onClick={() => {
-                      profileMenu("My Article");
+                      profileMenu("Home");
                     }}
                   >
                     <Typography sx={{ color: "#000" }} textAlign="center">
-                      My Article
+                      Home
                     </Typography>
                   </MenuItem>
-                ) : (
-                  <></>
-                )}
-                <Search>
-                  <SearchIconWrapper>
-                    <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ "aria-label": "search" }}
-                  />
-                </Search>
-              </Menu>
-            </Box>
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              <Link to="/" class="logo">
-                <img src={logo} width="129" height="40" alt="Blogy logo" />
-              </Link>
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Button
-                onClick={() => {
-                  profileMenu("Home");
-                }}
+
+                  <MenuItem
+                    onClick={() => {
+                      profileMenu("Add Article");
+                    }}
+                  >
+                    <Typography sx={{ color: "#000" }} textAlign="center">
+                      Add Article
+                    </Typography>
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={() => {
+                      profileMenu("Recent Post");
+                    }}
+                  >
+                    <Typography sx={{ color: "#000" }} textAlign="center">
+                      Recent Post
+                    </Typography>
+                  </MenuItem>
+
+                  {user?.email ? (
+                    <MenuItem
+                      onClick={() => {
+                        profileMenu("My Article");
+                      }}
+                    >
+                      <Typography sx={{ color: "#000" }} textAlign="center">
+                        My Article
+                      </Typography>
+                    </MenuItem>
+                  ) : (
+                    <></>
+                  )}
+                  <Search>
+                    <SearchIconWrapper>
+                      <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                      placeholder="Search…"
+                      inputProps={{ "aria-label": "search" }}
+                    />
+                  </Search>
+                </Menu>
+              </Box>
+              <Typography
+                variant="h5"
+                noWrap
+                component="a"
                 sx={{
-                  my: 2,
                   mr: 2,
-                  color: "#000",
-                  fontWeight: 600,
-                  fontSize: "1.5rem",
-                  display: "block",
+                  display: { xs: "flex", md: "none" },
+                  flexGrow: 1,
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
                 }}
               >
-                Home
-              </Button>
-              <Button
-                onClick={() => {
-                  profileMenu("Add Article");
-                }}
-                sx={{
-                  my: 2,
-                  mr: 2,
-                  color: "#000",
-                  fontWeight: 600,
-                  fontSize: "1.5rem",
-                  display: "block",
-                }}
-              >
-                Add Article
-              </Button>
-              <Button
-                onClick={() => {
-                  profileMenu("Recent Post");
-                }}
-                sx={{
-                  my: 2,
-                  mr: 2,
-                  color: "#000",
-                  fontWeight: 600,
-                  fontSize: "1.5rem",
-                  display: "block",
-                }}
-              >
-                Recent Post
-              </Button>
-              {user?.email ? (
+                <Link to="/" class="logo">
+                  <img src={logo} width="129" height="40" alt="Blogy logo" />
+                </Link>
+              </Typography>
+              <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                <Button
+                  onClick={() => {
+                    profileMenu("Home");
+                  }}
+                  sx={{
+                    my: 2,
+                    mr: 2,
+                    color: "#000",
+                    fontWeight: 600,
+                    fontSize: "1.5rem",
+                    display: "block",
+                  }}
+                >
+                  Home
+                </Button>
+                <Button
+                  onClick={() => {
+                    profileMenu("Add Article");
+                  }}
+                  sx={{
+                    my: 2,
+                    mr: 2,
+                    color: "#000",
+                    fontWeight: 600,
+                    fontSize: "1.5rem",
+                    display: "block",
+                  }}
+                >
+                  Add Article
+                </Button>
                 <Button
                   onClick={() => {
                     profileMenu("Recent Post");
@@ -344,72 +338,112 @@ const Header = ({ darkMode, setDarkMode }) => {
                     display: "block",
                   }}
                 >
-                  My Article
+                  Recent Post
                 </Button>
-              ) : (
-                <></>
-              )}
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
-            </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              {user?.name ? (
-                <>
-                  <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar
-                        sx={{ backgroundColor: "#000" }}
-                        alt={user.name}
-                        src="/static/images/avatar/2.jpg"
-                      />
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
+                {user?.email ? (
+                  <Button
+                    onClick={() => {
+                      profileMenu("Recent Post");
                     }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
+                    sx={{
+                      my: 2,
+                      mr: 2,
+                      color: "#000",
+                      fontWeight: 600,
+                      fontSize: "1.5rem",
+                      display: "block",
                     }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
                   >
-                    {settings.map((setting) => (
-                      <MenuItem
-                        key={setting}
-                        onClick={() => {
-                          profileMenu(setting);
-                        }}
-                      >
-                        <Typography textAlign="center">{setting}</Typography>
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </>
-              ) : (
-                <Link style={{ padding: "0.5vw 2vw" }} to="/login" class="btn1">
-                  Join
-                </Link>
-              )}
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </ThemeProvider>
+                    My Article
+                  </Button>
+                ) : (
+                  <></>
+                )}
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </Search>
+              </Box>
+
+              <Box sx={{ flexGrow: 0 }}>
+                {user?.name ? (
+                  <>
+                    <Tooltip title="Open settings">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar
+                          sx={{ backgroundColor: "#000" }}
+                          alt={user.name}
+                          src="/static/images/avatar/2.jpg"
+                        />
+                      </IconButton>
+                    </Tooltip>
+                    <Menu
+                      sx={{ mt: "45px" }}
+                      id="menu-appbar"
+                      anchorEl={anchorElUser}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorElUser)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      {settings.map((setting) => (
+                        <MenuItem
+                          key={setting}
+                          onClick={() => {
+                            profileMenu(setting);
+                          }}
+                        >
+                          <Typography textAlign="center">{setting}</Typography>
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                  </>
+                ) : (
+                  <Link
+                    style={{ padding: "0.5vw 2vw" }}
+                    to="/login"
+                    class="btn1"
+                  >
+                    Join
+                  </Link>
+                )}
+              </Box>
+            </Toolbar>
+          </Container>
+        </AppBar>
+      </ThemeProvider>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            ...style,
+            borderRadius:"40px",
+            width: { xs: "95%", md: "80%" },
+            overflow: "auto",
+            height: "70%",
+            boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
+          }}
+        >
+          <AddBlogForm />
+        </Box>
+      </Modal>
+    </>
   );
 }
 export default Header;

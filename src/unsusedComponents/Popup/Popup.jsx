@@ -4,7 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 
-import Register from "../Register/Register";
+import Register from "../../components/Register/Register";
 
 
 

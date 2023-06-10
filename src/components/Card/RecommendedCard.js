@@ -11,6 +11,7 @@ import author_3 from "../../images/images/author-3.jpg";
 import author_4 from "../../images/images/author-4.jpg";
 import author_5 from "../../images/images/author-5.jpg";
 import author_6 from "../../images/images/author-6.jpg";
+import "../Pages/Home/home.module.css";
 const CustomHeightstyles300 = {
   "--height": "360px",
   "--width": "300px",

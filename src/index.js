@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import {AuthContextProvider} from "../src/context/authContext"
+import {AuthContextProvider} from "../src/utilities/context/authContext"
 import "./index.css";
 import { theme } from "./utilities/theme/theme";
 import { LocalizationProvider } from "@mui/x-date-pickers";

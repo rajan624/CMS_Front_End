@@ -2,7 +2,7 @@ import { Autocomplete, Box, Button, Container, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { searchDataDump } from "../../firebase/functions";
 import classes from "../../pages/JobSearchPage/JobSearchPage.module.css";
-import { LocationIcon, SearchIcon } from "../Icons/Icons";
+import { LocationIcon, SearchIcon } from "../../utilities/Icons/Icons";
 import "./FormComponent.css";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";

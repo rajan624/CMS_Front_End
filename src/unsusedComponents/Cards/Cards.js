@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { CongratulationsIcon, JobVacanciesIcon } from "../Icons/Icons";
+import { CongratulationsIcon, JobVacanciesIcon } from "../../utilities/Icons/Icons";
 import TrustedUserImage from "../images/svg images/TrustedUserImg.svg";
 
 export const CongratulationsCards = () => {

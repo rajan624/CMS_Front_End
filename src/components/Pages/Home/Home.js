@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
-import { GetType } from "../../../context/authContext";
+import { GetType } from "../../../utilities/context/authContext";
 import BottomSubscriberForm from "../../Form/BottomSubscriberForm";
 import HeaderSubscriberForm from "../../Form/HeaderSubscriberForm";
 import RecommendedCard from "../../Card/RecommendedCard";
 import RecentCard from "../../Card/RecentCard";
 import FeaturedCard from "../../Card/FeaturedCard";
-import AddBlogForm from "../../Form/AddBlogForm";
-import { Modal } from "@mui/material";
+import "./tempHome.css"
 const Home = () => {
   const user = GetType();
-   const [open, setOpen] = useState(false);
-   const handleOpen = () => setOpen(true);
-   const handleClose = () => setOpen(false);
   return (
     <>
       <Header />
@@ -37,14 +33,7 @@ const Home = () => {
       </main>
 
       <Footer></Footer>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <AddBlogForm/>
-      </Modal>
+
     </>
   );
 };

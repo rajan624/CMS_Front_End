@@ -12,6 +12,7 @@ import recent_3 from "../../images/images/recent-3.jpg";
 import recent_4 from "../../images/images/recent-4.jpg";
 import recent_5 from "../../images/images/recent-5.jpg";
 import recent_6 from "../../images/images/recent-6.jpg";
+import "../Pages/Home/home.module.css";
 const CustomHeightstyles550 = {
   "--height": "660px",
   "--width": "550px",
