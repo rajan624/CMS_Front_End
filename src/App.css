@@ -61,7 +61,7 @@
 .Black-button {
   background-color: var(--eerie-black);
   color: var(--white);
-  font-size: var(--fs-6);
+  font-size: 2rem;
   font-weight: var(--fw-500);
   border: 1px solid black;
   line-height: 1.3;
@@ -116,3 +116,17 @@
   height: 5px;
   background-color: #f8f8f8;
 }
+@media only screen and (max-width: 450px) {
+.Black-button {
+  background-color: var(--eerie-black);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: var(--fw-500);
+  border: 1px solid black;
+  line-height: 1.3;
+  padding: 11px 25px;
+  border-radius: var(--radius-pill);
+  transition: var(--transition-1);
+}
+
+} 

@@ -21,6 +21,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Button, Grid, Input, Modal, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
+import CloseIcon from "@mui/icons-material/Close";
 const style = {
   position: "absolute",
   top: "50%",
@@ -424,22 +425,34 @@ const Header = ({ darkMode, setDarkMode }) => {
           </Container>
         </AppBar>
       </ThemeProvider>
+      {/* onClose={handleClose} */}
       <Modal
         open={open}
-        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box
           sx={{
             ...style,
-            borderRadius:"40px",
+            borderRadius: "40px 0px 0px 40px",
             width: { xs: "95%", md: "80%" },
             overflow: "auto",
             height: "70%",
-            boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
+            boxShadow:
+              "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
           }}
         >
+          <IconButton
+            sx={{
+              position: "absolute",
+              top: 8,
+              right: 8,
+              color: "grey",
+            }}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>
           <AddBlogForm />
         </Box>
       </Modal>

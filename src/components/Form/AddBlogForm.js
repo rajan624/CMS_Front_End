@@ -7,13 +7,15 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Box, Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Stack } from "react-bootstrap";
 import classes from "./AddBlogForm.module.css";
+import CommanLoadingScreen from "../LoadingScreen/CommanLoadingScreen";
 
 const AddBlogForm = () => {
   const [image, setImage] = useState("");
-  const [ProfileLogo, setProfileLogo] = useState("");
-  const [loading, setLoading] = useState("");
+  const [url, setUrl] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [alreadyUploadImage, setAlreadyUploadImage] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -22,170 +24,133 @@ const AddBlogForm = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  const imageUrl = URL.createObjectURL(file);
+  setImage(imageUrl);
+  }
+  const handelSubmit = async (data) => {
+    setLoading(true);
+    console.log(data)
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("image", data.description);
+    formData.append("image", data.name);
+    formData.append("image", data.tagLine);
 
-  const handelSubmit = (e) => {
-    e.preventDefault();
-
-    // // Request body
-    // const data = JSON.stringify({
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   message
-    // });
-
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    // };
-
-    // axios
-    //   .post("https://epo-backend.herokuapp.com/api/contact", data, config)
-    //   .then((res) => {
-    //     setData(res.data);
-    //     console.log(res.data);
-    //     setOpen(false)
-    //   })
-    //   .catch((err) => {
-    //     toast.error(err.response.data.msg, {
-    //       position: "bottom-right",
-    //       hideProgressBar: false,
-    //       autoClose: 5000,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     })
-    //     console.log(err.response.data.msg)});
-    toast.success("Message Sumbitted");
+    // Make the API request to upload the image
+    await axios.post(`${process.env.REACT_APP_API_URL}/blog/createBlog`, formData)
+      .then((response) => {
+      // Handle the response after successful upload
+        console.log(response.data);
+        setLoading(false);
+        toast.error(response.message);
+      })
+      .catch((error) => {
+      setLoading(false);
+      // Handle any errors during the upload
+        toast.error(error.message)
+        console.error(error);
+      });
   };
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        padding: "10px",
-        backgroundColor: "#fff",
-        borderRadius: "8px",
-      }}
-      component={"form"}
-      noValidate
-      onSubmit={handleSubmit(handelSubmit)}
-    >
-      <h2 className={"Heading2"}>
-        Add Blog<span>Share Your thoughts</span>
-      </h2>
-
-      <Box
-      // sx={{
-      //   alignItems: "center",
-      // }}
-      >
-        <div className={classes.container}>
-          <div htmlFor="thumbnail-image" className={classes.card}>
-            <div className={classes.drop_box}>
-              <header>
-                <h4>Upload Thumbnail</h4>
-              </header>
-              <p>Files Supported: img , jpeg</p>
-              <button className={classes.btn2}>Choose Image</button>
-            </div>
-          </div>
-              <input
-                type="image"
-                hidden
-                accept=".img,.jpeg"
-                id="thumbnail-image"
-                style={{ display: "none" }}
-              />
-        </div>
-        <Typography
+    <>
+      {loading ? (
+        <CommanLoadingScreen progress={progress} />
+      ) : (
+        <Box
           sx={{
-            color: "#696969",
-            fontFamily: "Sofia Pro",
-            fontSize: "14px",
-            mt: "30px",
+            width: "100%",
+            padding: "10px",
+            backgroundColor: "#fff",
+            borderRadius: "8px",
           }}
+          component={"form"}
+          noValidate
+          onSubmit={handleSubmit(handelSubmit)}
         >
-          Max file size is 1MB, Minimum dimension: 330x300 And Suitable files
-          are .jpg & .png
-        </Typography>
-      </Box>
+          <h2 className={"Heading2"}>
+            Add Blog<span>Share Your thoughts</span>
+          </h2>
+          <label htmlFor="thumbnail-image" className={classes.container}>
+            {url || image ? (
+              <img className={classes.imageAddBlogForm} src={image}></img>
+            ) : (
+              <label className={classes.card}>
+                <div className={classes.drop_box}>
+                  <header>
+                    <h4>Upload Thumbnail</h4>
+                  </header>
+                  <p>Files Supported: img , jpeg</p>
+                  <button
+                    type="button"
+                    className={"Black-button"}
+                    onClick={() => {
+                      const fileInput =
+                        document.getElementById("thumbnail-image");
+                      fileInput.click();
+                    }}
+                  >
+                    Choose Image
+                  </button>
+                </div>
+              </label>
+            )}
+            <input
+              accept="image/*"
+              type="file"
+              onChange={(e) => {
+                console.log(e.target.files[0]);
+                handleFileChange(e);
+              }}
+              id="thumbnail-image"
+              style={{ display: "none" }}
+            />
+          </label>
+          <Box className={classes.formBox}>
+            <TextField
+              variant="filled"
+              color="success"
+              multiline
+              id="filled-textarea"
+              label="Heading"
+              className={classes.inputField}
+              {...register("name", { required: "Heading is required" })}
+              error={Boolean(errors.name)}
+              helperText={errors.name && errors.name.message}
+            />
 
-      <Stack spacing={4} sx={{ mt: "50px" }}>
-        <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={6}>
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                sx={{
-                  color: "#202124",
-                  fontFamily: "Sofia Pro",
-                  fontSize: "15px",
-                }}
-              >
-                Name
-              </Typography>
-              <TextField
-                id="outlined-basic"
-                //    label="John"
-                variant="outlined"
-                sx={{ width: "100%", mt: "10px" }}
-                {...register("name", { required: "Name is required" })}
-                error={Boolean(errors.name)}
-                helperText={errors.name && errors.name.message}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                sx={{
-                  color: "#202124",
-                  fontFamily: "Sofia Pro",
-                  fontSize: "15px",
-                }}
-              >
-                Occupation
-              </Typography>
-              <TextField
-                id="outlined-basic"
-                //  label="plumber"
-                variant="outlined"
-                sx={{ width: "100%", mt: "10px" }}
-                {...register("occupation", {
-                  required: "Occupation is required",
-                })}
-                error={Boolean(errors.occupation)}
-                helperText={errors.occupation && errors.occupation.message}
-              />
-            </Box>
-          </Grid>
+            <TextField
+              variant="filled"
+              color="success"
+              multiline
+              id="filled-textarea"
+              label="Description"
+              placeholder=""
+              className={classes.inputField}
+              {...register("description", {
+                required: "Description is required",
+              })}
+              error={Boolean(errors.description)}
+              helperText={errors.description && errors.description.message}
+            />
 
-          <Grid item xs={6}>
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                sx={{
-                  color: "#202124",
-                  fontFamily: "Sofia Pro",
-                  fontSize: "15px",
-                }}
-              >
-                Tag Line
-              </Typography>
-              <TextField
-                id="outlined-basic"
-                // label="Great quality!"
-                variant="outlined"
-                sx={{ width: "100%", mt: "10px" }}
-                {...register("tagLine", {
-                  required: "Tag Line is required",
-                })}
-                error={Boolean(errors.tagLine)}
-                helperText={errors.tagLine && errors.tagLine.message}
-              />
-            </Box>
+            <TextField
+              variant="filled"
+              color="success"
+              multiline
+              id="filled-textarea"
+              label="Tag"
+              placeholder=""
+              className={classes.inputField}
+              {...register("tagLine", {
+                required: "Tag Line is required",
+              })}
+              error={Boolean(errors.tagLine)}
+              helperText={errors.tagLine && errors.tagLine.message}
+            />
+
             <Box>
               <button
                 type="submit"
@@ -195,77 +160,11 @@ const AddBlogForm = () => {
                 Add
               </button>
             </Box>
-          </Grid>
-
-          <Grid item xs={6}>
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                sx={{
-                  color: "#202124",
-                  fontFamily: "Sofia Pro",
-                  fontSize: "15px",
-                }}
-              >
-                Description
-              </Typography>
-              <TextField
-                id="outlined-basic"
-                //  label="Write something about company"
-                variant="outlined"
-                color="success"
-                multiline
-                rows={5}
-                sx={{
-                  width: "100%",
-                  mt: "10px",
-                  color: "#696969",
-                  fontFamily: "Sofia Pro",
-                  fontSize: "15px",
-                }}
-                {...register("description", {
-                  required: "Description is required",
-                })}
-                error={Boolean(errors.description)}
-                helperText={errors.description && errors.description.message}
-              />
-            </Box>
-          </Grid>
-        </Grid>
-      </Stack>
-    </Box>
+          </Box>
+        </Box>
+      )}
+    </>
   );
 };
 
 export default AddBlogForm;
-
-
-//  <Box>
-//    <label htmlFor="contained-button-file"></label>
-//  </Box>;
-   {
-     /* <img
-            style={{ width: "70vw", height: "30vh", borderRadius: "32px" }}
-            src={image ? URL.createObjectURL(image) : ProfileLogo}
-            alt=""
-          /> */
-}
-   
-  {
-    /* <Input
-              accept="image/*"
-              id="contained-button-file"
-              multiple
-              type="file"
-              sx={{ display: "none" }}
-              onChange={(e) => {
-                // handleFileChange(e.target.files[0]);
-              }}
-            /> */
-  }
-  {
-    /* <button
-              className={"Black-button"}
-            >
-              Upload Photo
-            </button> */
-  }

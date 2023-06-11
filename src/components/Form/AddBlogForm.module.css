@@ -1,6 +1,5 @@
 .container {
   height: 300PX;
-  width: 70vw;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -72,4 +71,42 @@
   outline: none;
   padding: 12px 20px;
   border-radius: 4px;
+}
+
+
+.inputField{
+  width: 70vw;
+}
+
+.formBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+@media only screen and (max-width: 450px) {
+.card {
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+  width: 80vw;
+  height: 35vh;
+  background-color: #ffffff;
+  padding: 10px 30px 40px;
+}
+.imageAddBlogForm{
+width: 70vw;
+    height: 35vh;
+
+}
+
+} 
+
+
+
+.imageAddBlogForm{
+width: auto;
+    height: 35vh;
+
 }
