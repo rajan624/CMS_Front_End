@@ -43,8 +43,6 @@ function SignIn({ props }) {
     getValues,
   } = useForm();
   const onSubmit = async(data) => {
-    // evt.preventDefault();
-    console.log(data)
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}/user/login`, data)
         .then(function (response) {
@@ -62,8 +60,6 @@ function SignIn({ props }) {
     } catch (error) {
       console.log(error.response.data.msg);      
     }
-
-  
   };
   return (
     <ThemeProvider theme={theme}>

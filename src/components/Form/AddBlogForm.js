@@ -14,6 +14,7 @@ const AddBlogForm = () => {
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
   const [progress, setProgress] = useState(0);
+  const [fileUrl, setFileUrl] = useState("");
   const [alreadyUploadImage, setAlreadyUploadImage] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -27,29 +28,44 @@ const AddBlogForm = () => {
   const handleFileChange = (e) => {
   const file = e.target.files[0];
   const imageUrl = URL.createObjectURL(file);
-  setImage(imageUrl);
+    setFileUrl(file);
+    setImage(imageUrl);
   }
   const handelSubmit = async (data) => {
     setLoading(true);
-    console.log(data)
     const formData = new FormData();
-    formData.append("image", image);
-    formData.append("image", data.description);
-    formData.append("image", data.name);
-    formData.append("image", data.tagLine);
-
+    formData.append("file", fileUrl);
+    formData.append("description", data.description);
+    formData.append("heading", data.name);
+    formData.append("tagline", data.tagLine);
+    const token = localStorage.getItem("token");
+    console.log(token);
+    if (!token) {
+      return;
+    }
+    // Configure the request headers
+    const config = {
+      headers: {
+        Authorization: token,
+        "Content-Type": "multipart/form-data",
+      },
+    };
     // Make the API request to upload the image
-    await axios.post(`${process.env.REACT_APP_API_URL}/blog/createBlog`, formData)
+    await axios.post(
+        `${process.env.REACT_APP_API_URL}/blog/createBlog`,
+        formData,
+        config
+      )
       .then((response) => {
-      // Handle the response after successful upload
+        // Handle the response after successful upload
         console.log(response.data);
         setLoading(false);
         toast.error(response.message);
       })
       .catch((error) => {
-      setLoading(false);
-      // Handle any errors during the upload
-        toast.error(error.message)
+        setLoading(false);
+        // Handle any errors during the upload
+        toast.error(error.message);
         console.error(error);
       });
   };
