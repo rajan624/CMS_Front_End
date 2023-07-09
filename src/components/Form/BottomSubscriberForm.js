@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function BottomSubscriberForm() {
   return (
@@ -24,4 +24,4 @@ function BottomSubscriberForm() {
   );
 }
 
-export default BottomSubscriberForm
+export default BottomSubscriberForm;

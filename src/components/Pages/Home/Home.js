@@ -2,38 +2,19 @@ import React, { useState } from "react";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import { GetType } from "../../../utilities/context/authContext";
-import BottomSubscriberForm from "../../Form/BottomSubscriberForm";
-import HeaderSubscriberForm from "../../Form/HeaderSubscriberForm";
-import RecommendedCard from "../../Card/RecommendedCard";
-import RecentCard from "../../Card/RecentCard";
-import FeaturedCard from "../../Card/FeaturedCard";
 import "./tempHome.css"
+import { Outlet } from "react-router-dom";
+import { Box } from "@mui/material";
 const Home = () => {
   const user = GetType();
   return (
     <>
       <Header />
-
-      <main>
-        <article>
-          <section class="section hero" aria-label="home">
-            <div class="container">
-              <h1 class="h1 hero-title">
-                <strong class="strong">Hey, we’re Blogy.</strong> See our
-                thoughts, stories and ideas.
-              </h1>
-              {!user?.email ? <HeaderSubscriberForm /> : <></>}
-            </div>
-          </section>
-          <FeaturedCard />
-          <RecentCard />
-          <RecommendedCard />
-          {!user?.email ? <BottomSubscriberForm /> : <></>}
-        </article>
-      </main>
+      <Box className={"outLet"}>
+        <Outlet />
+      </Box>
 
       <Footer></Footer>
-
     </>
   );
 };

@@ -5,6 +5,9 @@
   justify-content: center;
   background-color: #fcfcfc;
 }
+.css-17w8br2-MuiInputBase-root-MuiFilledInput-root {
+  font-size: 2rem !important;
+}
 
 .card {
   border-radius: 10px;
@@ -75,7 +78,7 @@
 
 
 .inputField{
-  width: 70vw;
+  width: 80vw;
 }
 
 .formBox{

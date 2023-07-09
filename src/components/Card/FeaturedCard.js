@@ -11,6 +11,7 @@ import author_3 from "../../images/images/author-3.jpg";
 import author_4 from "../../images/images/author-4.jpg";
 import author_5 from "../../images/images/author-5.jpg";
 import author_6 from "../../images/images/author-6.jpg";
+import { useState } from 'react';
 const CustomHeightstyles500 = {
   "--height": "600px",
   "--width": "500px",
@@ -20,6 +21,7 @@ const CustomHeightstyles100 = {
   "--width": "100px",
 };
 function FeaturedCard() {
+  const [featuredCard, setFeaturedCard] = useState([]);
   return (
     <section class="section featured" aria-label="featured post">
       <div class="container">

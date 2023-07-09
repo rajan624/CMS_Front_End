@@ -49,8 +49,7 @@ const useStyles = makeStyles((theme) => ({
       width: "50%",
     },
   },
-}));
-const pages = ["Home", "Add Article", "Recent Post", "My Article"];
+}))
 const settings = ["Profile", "Logout"];
 
 const theme = createTheme({
@@ -114,8 +113,8 @@ const Header = ({ darkMode, setDarkMode }) => {
  window.location.reload();
     } else if (value == "Add Article") {
       if (user?.email) {
-        //  navigate("/Editor");
-        handleOpen()
+         navigate("/Editor");
+        // handleOpen()
       } else {
          navigate("/login");
       }
@@ -298,21 +297,6 @@ const Header = ({ darkMode, setDarkMode }) => {
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 <Button
                   onClick={() => {
-                    profileMenu("Home");
-                  }}
-                  sx={{
-                    my: 2,
-                    mr: 2,
-                    color: "#000",
-                    fontWeight: 600,
-                    fontSize: "1.5rem",
-                    display: "block",
-                  }}
-                >
-                  Home
-                </Button>
-                <Button
-                  onClick={() => {
                     profileMenu("Add Article");
                   }}
                   sx={{
@@ -326,37 +310,41 @@ const Header = ({ darkMode, setDarkMode }) => {
                 >
                   Add Article
                 </Button>
-                <Button
-                  onClick={() => {
-                    profileMenu("Recent Post");
-                  }}
-                  sx={{
-                    my: 2,
-                    mr: 2,
-                    color: "#000",
-                    fontWeight: 600,
-                    fontSize: "1.5rem",
-                    display: "block",
-                  }}
-                >
-                  Recent Post
-                </Button>
+
                 {user?.email ? (
-                  <Button
-                    onClick={() => {
-                      profileMenu("Recent Post");
-                    }}
-                    sx={{
-                      my: 2,
-                      mr: 2,
-                      color: "#000",
-                      fontWeight: 600,
-                      fontSize: "1.5rem",
-                      display: "block",
-                    }}
-                  >
-                    My Article
-                  </Button>
+                  <>
+                    {" "}
+                    <Button
+                      onClick={() => {
+                        profileMenu("Recent Post");
+                      }}
+                      sx={{
+                        my: 2,
+                        mr: 2,
+                        color: "#000",
+                        fontWeight: 600,
+                        fontSize: "1.5rem",
+                        display: "block",
+                      }}
+                    >
+                      Recent Post
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        profileMenu("Recent Post");
+                      }}
+                      sx={{
+                        my: 2,
+                        mr: 2,
+                        color: "#000",
+                        fontWeight: 600,
+                        fontSize: "1.5rem",
+                        display: "block",
+                      }}
+                    >
+                      My Article
+                    </Button>
+                  </>
                 ) : (
                   <></>
                 )}

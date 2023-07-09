@@ -5,14 +5,18 @@ import SignIn from "../../components/LoginSignUpComponent/SignIn";
 import SignUp from "../../components/LoginSignUpComponent/SignUp";
 import PageNotFound from "../../components/PageNotFound/PageNotFound";
 import TextEditor from "../../EditorComponent/TextEditor";
+import HomePage from "../../components/Pages/Home/HomePage";
 const Router = () => {
   return (
     <Box>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<SignIn />}></Route>
+        <Route path="/" element={<Home />}>
+          <Route path="" element={<HomePage />} />
+          <Route path="/editor" element={<TextEditor />} />
+          <Route path="/Blog/:heading/:id" element={<TextEditor />} />
+        </Route>
+        <Route path="/login" element={<SignIn />}/>
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/Editor" element={<TextEditor />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Box>
