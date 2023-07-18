@@ -1,5 +1,7 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
 import { createContext, useContext, useEffect, useState } from "react";
+const cookies = new Cookies();
 // import {
 //   createUserWithEmailAndPassword,
 //   signInWithEmailAndPassword,
@@ -20,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      const token = localStorage.getItem("token");
+      const token = cookies.get("token");
       console.log(token)
       if (!token) {
         return;

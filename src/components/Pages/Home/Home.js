@@ -6,7 +6,6 @@ import "./tempHome.css"
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 const Home = () => {
-  const user = GetType();
   return (
     <>
       <Header />

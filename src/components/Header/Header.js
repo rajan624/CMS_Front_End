@@ -22,6 +22,9 @@ import { Button, Grid, Input, Modal, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
 import CloseIcon from "@mui/icons-material/Close";
+import Cookies from "universal-cookie";
+import axios from "axios";
+import { toast } from "react-toastify";
 const style = {
   position: "absolute",
   top: "50%",
@@ -32,24 +35,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  modalContent: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2),
-    outline: "none",
-    width: "90%",
-    maxWidth: 400,
-    [theme.breakpoints.up("sm")]: {
-      width: "50%",
-    },
-  },
-}))
 const settings = ["Profile", "Logout"];
 
 const theme = createTheme({
@@ -61,20 +46,11 @@ const theme = createTheme({
   },
 });
 const Header = ({ darkMode, setDarkMode }) => {
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const cookies = new Cookies();
     const [open, setOpen] = useState(false);
-
     const handleOpen = () => {
       setOpen(true);
     };
-
     const handleClose = () => {
       setOpen(false);
     };
@@ -108,9 +84,8 @@ const Header = ({ darkMode, setDarkMode }) => {
   const profileMenu = (value) => {
     console.log(value)
     if (value == "Logout") {
-     localStorage.removeItem("token");
- navigate("/", { replace: true });
- window.location.reload();
+      logOut();
+
     } else if (value == "Add Article") {
       if (user?.email) {
          navigate("/Editor");
@@ -118,6 +93,8 @@ const Header = ({ darkMode, setDarkMode }) => {
       } else {
          navigate("/login");
       }
+    } else if (value == "Profile") {
+      navigate("/profile");
     }
   }
   const Search = styled("div")(({ theme }) => ({
@@ -165,6 +142,27 @@ const Header = ({ darkMode, setDarkMode }) => {
       },
     },
   }));
+
+  const logOut = () => {
+    const token = cookies.get("token");
+    console.log("🚀 ~ file: Header.js:166 ~ logOut ~ token:", token)
+    try {
+      axios.post(`${process.env.REACT_APP_API_URL}/user/logout`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then((response) => {
+        cookies.set("token" , "")
+        toast.success("Logout Success");
+         navigate("/", { replace: true });
+         window.location.reload();
+      }).catch((e) => {
+        toast.error("Something went wrong")
+      })
+    } catch (error) {
+      
+    }
+  }
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -367,7 +365,7 @@ const Header = ({ darkMode, setDarkMode }) => {
                         <Avatar
                           sx={{ backgroundColor: "#000" }}
                           alt={user.name}
-                          src="/static/images/avatar/2.jpg"
+                          src={user?.profileImage}
                         />
                       </IconButton>
                     </Tooltip>

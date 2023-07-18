@@ -42,29 +42,10 @@ function SignIn({ props }) {
     formState: { errors },
     getValues,
   } = useForm();
-  const onSubmit = async(data) => {
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/user/login`, data)
-        .then(function (response) {
-          toast.success("Login Successfully");
-          reset({})
-          console.log(response);
-          localStorage.setItem("token", response.data.token);
-          navigate("/", { replace: true });
-          window.location.reload();
-        })
-        .catch(function (error) {
-          console.log(error);
-          toast.error(error.response.data.msg);
-        })
-    } catch (error) {
-      console.log(error.response.data.msg);      
-    }
-  };
-  const googleLogin = async() => {
+  const onSubmit = async (data) => {
     try {
       await axios
-        .get(`${process.env.REACT_APP_API_URL}auth/google`)
+        .post(`${process.env.REACT_APP_API_URL}/user/login`, data)
         .then(function (response) {
           toast.success("Login Successfully");
           reset({});
@@ -78,7 +59,27 @@ function SignIn({ props }) {
           toast.error(error.response.data.msg);
         });
     } catch (error) {
-      console.log(error.response.data.msg);      
+      console.log(error.response.data.msg);
+    }
+  };
+  const googleLogin = async () => {
+    try {
+      await axios
+        .get(`${process.env.REACT_APP_API_URL}/user/auth/google`)
+        .then(function (response) {
+          toast.success("Login Successfully");
+          reset({});
+          console.log(response);
+          localStorage.setItem("token", response.data.token);
+          navigate("/", { replace: true });
+          window.location.reload();
+        })
+        .catch(function (error) {
+          console.log(error);
+          toast.error(error.response.data.msg);
+        });
+    } catch (error) {
+      console.log(error.response.data.msg);
     }
   };
   return (
@@ -229,38 +230,41 @@ function SignIn({ props }) {
               >
                 Sign In
               </Button>
-                <a href={`${process.env.REACT_APP_API_URL}auth/google`} >fsdfsaf</a>
               <div id="alternativeLogin">
                 <label>Or sign in with:</label>
-                <button onClick={()=>{googleLogin()}} type="button" className={classes.google_button}>
-                  <span className={classes.google_button__icon}>
-                    <svg
-                      viewBox="0 0 366 372"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M125.9 10.2c40.2-13.9 85.3-13.6 125.3 1.1 22.2 8.2 42.5 21 59.9 37.1-5.8 6.3-12.1 12.2-18.1 18.3l-34.2 34.2c-11.3-10.8-25.1-19-40.1-23.6-17.6-5.3-36.6-6.1-54.6-2.2-21 4.5-40.5 15.5-55.6 30.9-12.2 12.3-21.4 27.5-27 43.9-20.3-15.8-40.6-31.5-61-47.3 21.5-43 60.1-76.9 105.4-92.4z"
-                        id="Shape"
-                        fill="#EA4335"
-                      />
-                      <path
-                        d="M20.6 102.4c20.3 15.8 40.6 31.5 61 47.3-8 23.3-8 49.2 0 72.4-20.3 15.8-40.6 31.6-60.9 47.3C1.9 232.7-3.8 189.6 4.4 149.2c3.3-16.2 8.7-32 16.2-46.8z"
-                        id="Shape"
-                        fill="#FBBC05"
-                      />
-                      <path
-                        d="M361.7 151.1c5.8 32.7 4.5 66.8-4.7 98.8-8.5 29.3-24.6 56.5-47.1 77.2l-59.1-45.9c19.5-13.1 33.3-34.3 37.2-57.5H186.6c.1-24.2.1-48.4.1-72.6h175z"
-                        id="Shape"
-                        fill="#4285F4"
-                      />
-                      <path
-                        d="M81.4 222.2c7.8 22.9 22.8 43.2 42.6 57.1 12.4 8.7 26.6 14.9 41.4 17.9 14.6 3 29.7 2.6 44.4.1 14.6-2.6 28.7-7.9 41-16.2l59.1 45.9c-21.3 19.7-48 33.1-76.2 39.6-31.2 7.1-64.2 7.3-95.2-1-24.6-6.5-47.7-18.2-67.6-34.1-20.9-16.6-38.3-38-50.4-62 20.3-15.7 40.6-31.5 60.9-47.3z"
-                        fill="#34A853"
-                      />
-                    </svg>
-                  </span>
-                  <span className={classes.google_button__text}>Sign in with Google</span>
-                </button>
+                <a href={`${process.env.REACT_APP_API_URL}/user/auth/google`}>
+                  <button type="button" className={classes.google_button}>
+                    <span className={classes.google_button__icon}>
+                      <svg
+                        viewBox="0 0 366 372"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M125.9 10.2c40.2-13.9 85.3-13.6 125.3 1.1 22.2 8.2 42.5 21 59.9 37.1-5.8 6.3-12.1 12.2-18.1 18.3l-34.2 34.2c-11.3-10.8-25.1-19-40.1-23.6-17.6-5.3-36.6-6.1-54.6-2.2-21 4.5-40.5 15.5-55.6 30.9-12.2 12.3-21.4 27.5-27 43.9-20.3-15.8-40.6-31.5-61-47.3 21.5-43 60.1-76.9 105.4-92.4z"
+                          id="Shape"
+                          fill="#EA4335"
+                        />
+                        <path
+                          d="M20.6 102.4c20.3 15.8 40.6 31.5 61 47.3-8 23.3-8 49.2 0 72.4-20.3 15.8-40.6 31.6-60.9 47.3C1.9 232.7-3.8 189.6 4.4 149.2c3.3-16.2 8.7-32 16.2-46.8z"
+                          id="Shape"
+                          fill="#FBBC05"
+                        />
+                        <path
+                          d="M361.7 151.1c5.8 32.7 4.5 66.8-4.7 98.8-8.5 29.3-24.6 56.5-47.1 77.2l-59.1-45.9c19.5-13.1 33.3-34.3 37.2-57.5H186.6c.1-24.2.1-48.4.1-72.6h175z"
+                          id="Shape"
+                          fill="#4285F4"
+                        />
+                        <path
+                          d="M81.4 222.2c7.8 22.9 22.8 43.2 42.6 57.1 12.4 8.7 26.6 14.9 41.4 17.9 14.6 3 29.7 2.6 44.4.1 14.6-2.6 28.7-7.9 41-16.2l59.1 45.9c-21.3 19.7-48 33.1-76.2 39.6-31.2 7.1-64.2 7.3-95.2-1-24.6-6.5-47.7-18.2-67.6-34.1-20.9-16.6-38.3-38-50.4-62 20.3-15.7 40.6-31.5 60.9-47.3z"
+                          fill="#34A853"
+                        />
+                      </svg>
+                    </span>
+                    <span className={classes.google_button__text}>
+                       Google
+                    </span>
+                  </button>
+                </a>
               </div>
               <Grid container>
                 <Grid item xs>
@@ -302,8 +306,8 @@ function SignIn({ props }) {
 }
 
 export default SignIn;
-   {
-     /* <div id="loginform">
+{
+  /* <div id="loginform">
           <h2 id="headerTitle">Login</h2>
           <div>
             <div class="row">
@@ -340,7 +344,7 @@ export default SignIn;
           </h1>
           <img src={backgroundImage} alt="" />
         </div> */
-   }
+}
 
 {
   /* <div id="alternativeLogin">
@@ -361,8 +365,8 @@ export default SignIn;
           </div> */
 }
 
- {
-   /* <main className="signup_container">
+{
+  /* <main className="signup_container">
           <h1 className="heading_primary">
             Log in<span className="span_blue">.</span>
           </h1>
@@ -495,91 +499,7 @@ export default SignIn;
 
      
         </main> */
- }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 {
   /* <FormControlLabel
@@ -612,9 +532,8 @@ export default SignIn;
                   </Typography> */
 }
 
-
-   {
-     /* <Box sx={{ display: "flex", alignItems: "center", gap: "" }}>
+{
+  /* <Box sx={{ display: "flex", alignItems: "center", gap: "" }}>
                 <Box
                   sx={{
                     width: "45%",
@@ -633,10 +552,10 @@ export default SignIn;
                   }}
                 ></Box>
               </Box> */
-   }
+}
 
-   {
-     /* <Box
+{
+  /* <Box
                 sx={{
                   display: "flex",
                   flexDirection: { xs: "column", md: "row" },
@@ -690,9 +609,9 @@ export default SignIn;
                   </Typography>
                 </Button>
               </Box> */
-   }
-     {
-       /* <form
+}
+{
+  /* <form
             onChange={handleChange}
             onSubmit={handleOnSubmit}
             className="signup_form"
@@ -719,9 +638,9 @@ export default SignIn;
             </label>
             <button className="btn btn_login">Login</button>
           </form> */
-     }
-     {
-       /* <p className="text_mute">
+}
+{
+  /* <p className="text_mute">
             Not a member ? <Link to="/signup">Sign up</Link>
           </p> */
-     }
+}

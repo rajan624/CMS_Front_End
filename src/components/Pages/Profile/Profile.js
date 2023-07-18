@@ -1,11 +1,13 @@
 import React from "react";
 import classes from "./Profile.module.css";
-import { Avatar, Chip, useScrollTrigger } from "@mui/material";
+import { Avatar, Chip } from "@mui/material";
 import { useState } from "react";
 import Badge from "@mui/material/Badge";
 import { GrLocation } from "react-icons/gr";
+import { GetType } from "../../../utilities/context/authContext";
 
 function Profile() {
+  const user = GetType();
   const [blogArray, setBlogArray] = useState([1, 2, 3, 4, 5, 6]);
   const [messageArray, setMessageArray] = useState([
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
@@ -18,11 +20,19 @@ function Profile() {
       <div className={classes.profileDiv}>
         <div className={classes.imageNameDiv}>
           <div className={classes.imageDiv}>
-            <Avatar className={classes.image} variant="rounded" />
+            <Avatar
+              className={classes.image}
+              alt={user?.name}
+               src={user?.profileImage}
+              variant="rounded"
+            />
           </div>
           <div className={classes.nameDiv}>
-            <h2>Lorem ipsum</h2>
-            <p> <GrLocation/> Lorem, ipsum dolor.</p>
+            <h2>{user?.name }</h2>
+            <p>
+              {" "}
+              <GrLocation /> Lorem, ipsum dolor.
+            </p>
             <h4>Lorem ipsum dolor sit.</h4>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -44,7 +54,7 @@ function Profile() {
                 <p>63</p>
               </div>
             </div>
-            <button className="Black-button">Lorem, ipsum.</button>
+            <button className="Black-button">Edit Profile</button>
           </div>
         </div>
         <div className={classes.storyDiv}>
