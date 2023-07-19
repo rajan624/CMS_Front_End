@@ -94,7 +94,7 @@ const Header = ({ darkMode, setDarkMode }) => {
          navigate("/login");
       }
     } else if (value == "Profile") {
-      navigate("/profile");
+      navigate(`/profile/${user._id}`);
     }
   }
   const Search = styled("div")(({ theme }) => ({
