@@ -15,7 +15,7 @@ import { styled, alpha } from "@mui/material/styles";
 import logo from "../../images/images/logo.svg"
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { GetType } from "../../utilities/context/authContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Button, Grid, Input, Modal, Stack, TextField } from "@mui/material";
@@ -47,8 +47,20 @@ const theme = createTheme({
 });
 const Header = ({ darkMode, setDarkMode }) => {
   const cookies = new Cookies();
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => {
+ const [searchParams] = useSearchParams();
+  const googleToken = searchParams.get("googleToken");
+  
+  useEffect(() => {
+    if (googleToken) {
+      cookies.set("token", googleToken);
+      searchParams.delete("googleToken");
+      const newUrl = `${window.location.pathname}`;
+      window.history.replaceState(null, "", newUrl);
+      window.location.reload();
+    }
+  },[])
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
       setOpen(true);
     };
     const handleClose = () => {
@@ -147,18 +159,20 @@ const Header = ({ darkMode, setDarkMode }) => {
     const token = cookies.get("token");
     console.log("🚀 ~ file: Header.js:166 ~ logOut ~ token:", token)
     try {
-      axios.post(`${process.env.REACT_APP_API_URL}/user/logout`, {}, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then((response) => {
-        cookies.set("token" , "")
-        toast.success("Logout Success");
-         navigate("/", { replace: true });
-         window.location.reload();
-      }).catch((e) => {
-        toast.error("Something went wrong")
-      })
+      cookies.remove("token")
+      window.location.reload();
+      // axios.post(`${process.env.REACT_APP_API_URL}/user/logout`, {}, {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`
+      //   }
+      // }).then((response) => {
+      //   cookies.set("token" , "")
+      //   toast.success("Logout Success");
+      //    navigate("/", { replace: true });
+      //    window.location.reload();
+      // }).catch((e) => {
+      //   toast.error("Something went wrong")
+      // })
     } catch (error) {
       
     }
