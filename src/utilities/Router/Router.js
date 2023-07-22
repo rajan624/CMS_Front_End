@@ -7,16 +7,16 @@ import PageNotFound from "../../components/PageNotFound/PageNotFound";
 import TextEditor from "../../EditorComponent/TextEditor";
 import HomePage from "../../components/Pages/Home/HomePage";
 import Profile from "../../components/Pages/Profile/Profile";
+import ViewBlog from "../../components/Pages/ViewBlog/ViewBlog";
 const Router = () => {
   return (
     <Box>
       <Routes>
         <Route path="/" element={<Home />}>
           <Route path="" element={<HomePage />} />
-          <Route path="/:userId/:blogId" element={<HomePage />} />
+          <Route path="/:userId/:blogId" element={<ViewBlog />} />
           <Route path="/editor" element={<TextEditor />} />
           <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/Blog/:heading/:id" element={<TextEditor />} />
         </Route>
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
