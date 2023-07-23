@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import recommended_1 from "../../images/images/recommended-1.jpg";
 import recommended_2 from "../../images/images/recommended-2.jpg";
 import recommended_3 from "../../images/images/recommended-3.jpg";
@@ -12,6 +12,7 @@ import author_4 from "../../images/images/author-4.jpg";
 import author_5 from "../../images/images/author-5.jpg";
 import author_6 from "../../images/images/author-6.jpg";
 import "../Pages/Home/home.module.css";
+import axios from 'axios';
 const CustomHeightstyles300 = {
   "--height": "360px",
   "--width": "300px",
@@ -22,6 +23,22 @@ const CustomHeightstyles100 = {
 };
 
 function RecommendedCard() {
+   const [recommendedBlog, setRecommendedBlog] = useState([]);
+   useEffect(() => {
+     const fetchRecommendedBlog = async () => {
+       try {
+         const response = await axios.get(
+           `${process.env.REACT_APP_API_URL}/blog/bestStories`
+         );
+         console.log(response.data);
+         setRecommendedBlog(response.data.data);
+       } catch (error) {
+         console.log(error);
+       }
+     };
+
+     fetchRecommendedBlog();
+   }, []);
   return (
     <section class="section recommended" aria-label="recommended post">
       <div class="container">
@@ -30,69 +47,55 @@ function RecommendedCard() {
         </p>
 
         <ul class="grid-list">
-          <li>
-            <div class="blog-card">
-              <figure
-                class="card-banner img-holder"
-                style={CustomHeightstyles300}
-              >
-                <img
-                  src={recommended_1}
-                  width="300"
-                  height="360"
-                  loading="lazy"
-                  alt="The trick to getting more done is to have the freedom to roam around "
-                  class="img-cover"
-                />
+          {recommendedBlog.map((blog, index) => {
+            return (
+              <li>
+                <div class="blog-card">
+                  <figure
+                    class="card-banner img-holder"
+                    style={CustomHeightstyles300}
+                  >
+                    <img
+                      src={blog.imageUrl}
+                      width="300"
+                      height="360"
+                      loading="lazy"
+                      alt="The trick to getting more done is to have the freedom to roam around "
+                      class="img-cover"
+                    />
 
-                <ul class="avatar-list absolute">
-                  <li class="avatar-item">
-                    <a
-                      href="#"
-                      class="avatar img-holder"
-                      style={CustomHeightstyles100}
-                    >
-                      <img
-                        src={author_5}
-                        width="100"
-                        height="100"
-                        loading="lazy"
-                        alt="Author"
-                        class="img-cover"
-                      />
-                    </a>
-                  </li>
+                    <ul class="avatar-list absolute">
+                      <li class="avatar-item">
+                        <a
+                          href="#"
+                          class="avatar img-holder"
+                          style={CustomHeightstyles100}
+                        >
+                          <img
+                            src={blog.createdBy.profileImage}
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                            alt="Author"
+                            class="img-cover"
+                          />
+                        </a>
+                      </li>
+                    </ul>
+                  </figure>
 
-                  <li class="avatar-item">
-                    <a
-                      href="#"
-                      class="avatar img-holder"
-                      style={CustomHeightstyles100}
-                    >
-                      <img
-                        src={author_2}
-                        width="100"
-                        height="100"
-                        loading="lazy"
-                        alt="Author"
-                        class="img-cover"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </figure>
-
-              <div class="card-content">
-                <h3 class="h5">
-                  <a href="#" class="card-title hover:underline">
-                    The trick to getting more done is to have the freedom to
-                    roam around
-                  </a>
-                </h3>
-              </div>
-            </div>
-          </li>
-
+                  <div class="card-content">
+                    <h3 class="h5">
+                      <a href="#" class="card-title hover:underline">
+                       {blog.heading}
+                      </a>
+                    </h3>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+          {/* 
           <li>
             <div class="blog-card">
               <figure
@@ -333,7 +336,7 @@ function RecommendedCard() {
                 </h3>
               </div>
             </div>
-          </li>
+          </li> */}
         </ul>
       </div>
     </section>

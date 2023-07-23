@@ -8,6 +8,7 @@ import TextEditor from "../../EditorComponent/TextEditor";
 import HomePage from "../../components/Pages/Home/HomePage";
 import Profile from "../../components/Pages/Profile/Profile";
 import ViewBlog from "../../components/Pages/ViewBlog/ViewBlog";
+import Messages from "../../components/Pages/Message/Messages";
 const Router = () => {
   return (
     <Box>
@@ -18,6 +19,7 @@ const Router = () => {
           <Route path="/editor" element={<TextEditor />} />
           <Route path="/profile/:id" element={<Profile />} />
         </Route>
+        <Route path="/messages" element={<Messages />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<PageNotFound />} />

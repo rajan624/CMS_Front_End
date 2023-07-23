@@ -10,8 +10,10 @@ import axios from "axios";
 import CommanLoadingScreen from "../components/LoadingScreen/CommanLoadingScreen";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 const TextEditor = () => {
+  const cookies = new Cookies();
   const [value, setValues] = React.useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -74,7 +76,7 @@ const TextEditor = () => {
     formData.append("heading", data.name);
     formData.append("tagline", JSON.stringify(arrayOfTitles));
     formData.append("html", html);
-    const token = localStorage.getItem("token");
+    const token = cookies.get("token");
     console.log(token);
     if (!token) {
       return;
@@ -118,7 +120,7 @@ const TextEditor = () => {
   console.log(file);
   const formData = new FormData();
   formData.append("file", file);
-  const token = localStorage.getItem("token");
+  const token = cookies.get("token");
   console.log(token);
   if (!token) {
     return;
