@@ -11,7 +11,12 @@ import CommanLoadingScreen from "../components/LoadingScreen/CommanLoadingScreen
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-
+ const editorContentStyle = {
+   /* Add your custom styles here */
+   border: "1px solid #ccc",
+   padding: "10px",
+   backgroundColor: "#f9f9f9",
+ };
 const TextEditor = () => {
   const cookies = new Cookies();
   const [value, setValues] = React.useState([]);
@@ -20,10 +25,6 @@ const TextEditor = () => {
   const [fileUrl, setFileUrl] = useState("");
    const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
- 
-
-
-
     const {
       register,
       handleSubmit,
@@ -141,7 +142,7 @@ const TextEditor = () => {
     );
     // Handle the response after successful upload
     console.log(response.data);
-    return `${process.env.REACT_APP_API_IMAGE}${response.data.imageUrl}`; // Return the image URL
+    return `${response.data.imageUrl}`; // Return the image URL
   } catch (error) {
     setLoading(false);
     // Handle any errors during the upload
@@ -197,6 +198,9 @@ const TextEditor = () => {
           toolbarClassName="editor-toolbar"
           wrapperClassName="editor-wrapper"
           editorClassName="editor-content"
+          customStyleMap={{
+            "editor-content": editorContentStyle, // Apply the custom styles to the editor-content class
+          }}
         />
         <Box
           style={{

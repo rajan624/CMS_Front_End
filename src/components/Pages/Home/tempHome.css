@@ -267,6 +267,7 @@ body.active { overflow: hidden; }
 
 .scrollbar-item {
   min-width: 70%;
+  cursor: pointer;
   scroll-snap-align: center;
 }
 
@@ -308,6 +309,7 @@ body.active { overflow: hidden; }
 
 .card-meta-list {
   display: flex;
+      flex-wrap: wrap;
   gap: 5px;
 }
 

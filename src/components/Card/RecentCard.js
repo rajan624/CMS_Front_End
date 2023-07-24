@@ -16,6 +16,7 @@ import "../Pages/Home/home.module.css";
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const CustomHeightstyles550 = {
   "--height": "660px",
   "--width": "550px",
@@ -25,6 +26,7 @@ const CustomHeightstyles100 = {
   "--width": "100px",
 };
 function RecentCard() {
+  const navigate = useNavigate();
    const [recentBlog, setRecentBlog] = useState([]);
    useEffect(() => {
      const fetchRecentBlog = async () => {
@@ -139,7 +141,11 @@ function RecentCard() {
         <ul class="grid-list">
           {recentBlog.map((blog, index) => {
             return (
-              <li>
+              <li
+                onClick={() => {
+                  navigate(`/${blog.createdBy._id}/${blog._id}`);
+                }}
+              >
                 <div class="blog-card">
                   <figure
                     class="card-banner img-holder"
@@ -155,9 +161,14 @@ function RecentCard() {
                     />
 
                     <ul class="avatar-list absolute">
-                      <li class="avatar-item">
+                      <li
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/profile/${blog.createdBy._id}`);
+                        }}
+                        class="avatar-item"
+                      >
                         <a
-                          href="#"
                           class="avatar img-holder"
                           style={CustomHeightstyles100}
                         >
@@ -189,13 +200,11 @@ function RecentCard() {
 
                     <h3 class="h4">
                       <a href="#" class="card-title hover:underline">
-                      {blog.heading}
+                        {blog.heading}
                       </a>
                     </h3>
 
-                    <p class="card-text">
-                     {blog.description}
-                    </p>
+                    <p class="card-text">{blog.description}</p>
                   </div>
                 </div>
               </li>

@@ -267,6 +267,7 @@ body.active { overflow: hidden; }
 
 .scrollbar-item {
   min-width: 70%;
+  
   scroll-snap-align: center;
 }
 

@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import axios from "axios";
+import MyBlogCard from "../../Card/MyBlogCard";
 const style = {
   position: "absolute",
   top: "50%",
@@ -120,25 +121,7 @@ function Profile() {
             </button>
           </div>
         </div>
-        <div className={classes.storyDiv}>
-          {blogArray.map((data, index) => {
-            return (
-              <div className={classes.cardDiv}>
-                <Avatar variant="rounded" className={classes.imageBlog} />
-                <Chip label="Chip Filled" />
-                <Chip label="Chip Filled" />
-                <Chip label="Chip Filled" />
-                <Chip label="Chip Filled" />
-                <Chip label="Chip Filled" />
-                <Chip label="Chip Filled" />
-                <h4>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Dignissimos, nam.
-                </h4>
-              </div>
-            );
-          })}
-        </div>
+        <div className={classes.storyDiv}><MyBlogCard/></div>
       </div>
 
       <div className={classes.messageSuggestionDiv}>

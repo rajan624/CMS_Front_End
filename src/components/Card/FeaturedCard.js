@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const CustomHeightstyles500 = {
   "--height": "600px",
   "--width": "500px",
@@ -24,6 +25,7 @@ const CustomHeightstyles100 = {
   "--width": "100px",
 };
 function FeaturedCard() {
+  const navigate = useNavigate();
   const cookies = new Cookies();
   const [featuredBlog, setFeaturedBlog] = useState([]);
    useEffect(() => {
@@ -52,7 +54,13 @@ function FeaturedCard() {
 
           {featuredBlog.map((blog, index) => {
             return (
-              <li key={index} class="scrollbar-item">
+              <li
+                onClick={() => {
+                   navigate(`/${blog.createdBy._id}/${blog._id}`);
+                }}
+                key={index}
+                class="scrollbar-item"
+              >
                 <div class="blog-card">
                   <figure
                     class="card-banner img-holder"
@@ -70,9 +78,14 @@ function FeaturedCard() {
                     />
 
                     <ul class="avatar-list absolute">
-                      <li class="avatar-item">
+                      <li
+                        onClick={(e) => {
+                          e.stopPropagation();
+                            navigate(`/profile/${blog.createdBy._id}`);
+                        }}
+                        class="avatar-item"
+                      >
                         <a
-                          href="#"
                           class="avatar img-holder"
                           style={CustomHeightstyles100}
                           // style="--width: 100; --height: 100;"

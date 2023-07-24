@@ -88,7 +88,7 @@ a {
   text-decoration: none;
 }
 
-img { height: auto; }
+img { height: auto;    max-width: 100%; }
 
 input,
 button {
@@ -267,6 +267,7 @@ body.active { overflow: hidden; }
 
 .scrollbar-item {
   min-width: 70%;
+  cursor: pointer;
   scroll-snap-align: center;
 }
 

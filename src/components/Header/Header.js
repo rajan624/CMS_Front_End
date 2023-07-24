@@ -252,17 +252,6 @@ const Header = ({ darkMode, setDarkMode }) => {
                       Add Article
                     </Typography>
                   </MenuItem>
-
-                  <MenuItem
-                    onClick={() => {
-                      profileMenu("Recent Post");
-                    }}
-                  >
-                    <Typography sx={{ color: "#000" }} textAlign="center">
-                      Recent Post
-                    </Typography>
-                  </MenuItem>
-
                   {user?.email ? (
                     <MenuItem
                       onClick={() => {
@@ -325,22 +314,7 @@ const Header = ({ darkMode, setDarkMode }) => {
 
                 {user?.email ? (
                   <>
-                    {" "}
-                    <Button
-                      onClick={() => {
-                        profileMenu("Recent Post");
-                      }}
-                      sx={{
-                        my: 2,
-                        mr: 2,
-                        color: "#000",
-                        fontWeight: 600,
-                        fontSize: "1.5rem",
-                        display: "block",
-                      }}
-                    >
-                      Recent Post
-                    </Button>
+
                     <Button
                       onClick={() => {
                         profileMenu("Recent Post");

@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import recommended_1 from "../../images/images/recommended-1.jpg";
-import recommended_2 from "../../images/images/recommended-2.jpg";
-import recommended_3 from "../../images/images/recommended-3.jpg";
-import recommended_4 from "../../images/images/recommended-4.jpg";
-import recommended_5 from "../../images/images/recommended-5.jpg";
-import recommended_6 from "../../images/images/recommended-6.jpg";
-import author_1 from "../../images/images/author-1.jpg";
-import author_2 from "../../images/images/author-2.jpg";
-import author_3 from "../../images/images/author-3.jpg";
-import author_4 from "../../images/images/author-4.jpg";
-import author_5 from "../../images/images/author-5.jpg";
-import author_6 from "../../images/images/author-6.jpg";
 import "../Pages/Home/home.module.css";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const CustomHeightstyles300 = {
   "--height": "360px",
   "--width": "300px",
@@ -23,6 +12,7 @@ const CustomHeightstyles100 = {
 };
 
 function RecommendedCard() {
+  const navigate = useNavigate();
    const [recommendedBlog, setRecommendedBlog] = useState([]);
    useEffect(() => {
      const fetchRecommendedBlog = async () => {
@@ -49,7 +39,11 @@ function RecommendedCard() {
         <ul class="grid-list">
           {recommendedBlog.map((blog, index) => {
             return (
-              <li>
+              <li
+                onClick={() => {
+                  navigate(`/${blog.createdBy._id}/${blog._id}`);
+                }}
+              >
                 <div class="blog-card">
                   <figure
                     class="card-banner img-holder"
@@ -65,9 +59,14 @@ function RecommendedCard() {
                     />
 
                     <ul class="avatar-list absolute">
-                      <li class="avatar-item">
+                      <li
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/profile/${blog.createdBy._id}`);
+                        }}
+                        class="avatar-item"
+                      >
                         <a
-                          href="#"
                           class="avatar img-holder"
                           style={CustomHeightstyles100}
                         >
@@ -87,7 +86,7 @@ function RecommendedCard() {
                   <div class="card-content">
                     <h3 class="h5">
                       <a href="#" class="card-title hover:underline">
-                       {blog.heading}
+                        {blog.heading}
                       </a>
                     </h3>
                   </div>
