@@ -8,6 +8,7 @@ import { GetType } from "../../../utilities/context/authContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import Cookies from "universal-cookie";
 import axios from "axios";
 import MyBlogCard from "../../Card/MyBlogCard";
 const style = {
@@ -23,7 +24,7 @@ const style = {
   p: 4,
 };
 function Profile() {
-  const [value , setValue] = useState("")
+  const cookies = new Cookies();
     const {
       register,
       handleSubmit,
@@ -45,18 +46,16 @@ function Profile() {
   const [suggestionArray, setSuggestionArray] = useState([
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ]);
-   const onSubmit = async (data) => {
-     console.log(process.env.REACT_APP_API_URL);
-     console.log(data);
+  const onSubmit = async (data) => {
+    console.log("🚀 ~ file: Profile.js:50 ~ onSubmit ~ data:", data)
+    const token = cookies.get("token");
      try {
        await axios
-         .post(`${process.env.REACT_APP_API_URL}/user/registerAuthor`, data)
+         .patch(`${process.env.REACT_APP_API_URL}/user/profile`,data,  {
+            headers: { Authorization: `${token}` },
+          })
          .then(function (response) {
-           toast.success("Sign Up Successfully");
-           // reset({})
-           console.log(response);
-           localStorage.setItem("token", response.data.token);
-           navigate("/", { replace: true });
+           toast.success("Profile Updated Successfully");
            window.location.reload();
          })
          .catch(function (error) {
@@ -86,16 +85,8 @@ function Profile() {
           </div>
           <div className={classes.nameDiv}>
             <h2>{user?.name}</h2>
-            <p>
-              {" "}
-              <GrLocation /> Lorem, ipsum dolor.
-            </p>
-            <h4>Lorem ipsum dolor sit.</h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatum in, sapiente dicta vero voluptatem incidunt quis quam
-              suscipit animi ullam?
-            </p>
+            <h4 className={classes.userTags}>{user?.tags}</h4>
+            <p className={classes.userDescription}>{user?.description}</p>
             <div className={classes.followLikeDiv}>
               <div>
                 {" "}
@@ -111,17 +102,36 @@ function Profile() {
                 <p>63</p>
               </div>
             </div>
-            <button
-              onClick={() => {
-                handleOpen();
-              }}
-              className="Black-button"
-            >
-              Edit Profile
-            </button>
+            {id == user._id ? (
+              <button
+                onClick={() => {
+                  handleOpen();
+                  reset({ ...user });
+                }}
+                className="Black-button"
+              >
+                Edit Profile
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  handleOpen();
+                  reset({ user });
+                  console.log(
+                    "🚀 ~ file: Profile.js:128 ~ Profile ~ user:",
+                    user
+                  );
+                }}
+                className="Black-button"
+              >
+                Follow
+              </button>
+            )}
           </div>
         </div>
-        <div className={classes.storyDiv}><MyBlogCard/></div>
+        <div className={classes.storyDiv}>
+          <MyBlogCard />
+        </div>
       </div>
 
       <div className={classes.messageSuggestionDiv}>
@@ -189,8 +199,9 @@ function Profile() {
                 mt: 1,
               }}
               id="name"
-              label="Name"
+              placeholder="Name"
               type="text"
+              required
               name="name"
               autoComplete="name"
               {...register("name", {
@@ -210,35 +221,10 @@ function Profile() {
                 fontSize: "1.5rem",
                 mt: 1,
               }}
-              id="phone"
-              label="Phone No"
-              {...register("phone", {
-                maxLength: 12,
-                minLength: 10,
-              })}
-              error={!!errors?.phone}
-              helperText={errors?.phone ? errors.phone.message : null}
-              name="phone"
-              type="tel"
-              autoComplete="phone"
-              autoFocus
-              InputLabelProps={{
-                sx: { fontSize: "1.5rem" },
-              }}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              sx={{
-                fontSize: "1.5rem",
-                mt: 1,
-              }}
+              required
               id="Tags"
-              label="Tags"
-              {...register("tags", {
-                maxLength: 12,
-                minLength: 10,
-              })}
+              placeholder="Tags"
+              {...register("tags")}
               error={!!errors?.tags}
               helperText={errors?.tags ? errors.tags.message : null}
               name="tags"
@@ -253,14 +239,15 @@ function Profile() {
               margin="normal"
               multiline
               rows="5"
+              required
               fullWidth
               sx={{
                 fontSize: "1.5rem",
                 mt: 1,
               }}
               id="description"
-              label="Description"
-              {...register("phone", {})}
+              placeholder="Description"
+              {...register("description")}
               error={!!errors?.description}
               helperText={
                 errors?.description ? errors.description.message : null

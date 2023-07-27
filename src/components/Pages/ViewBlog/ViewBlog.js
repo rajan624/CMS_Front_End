@@ -7,7 +7,9 @@ import { BsBookmark } from "react-icons/bs";
 import { FiShare } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { GetType } from "../../../utilities/context/authContext";
 function ViewBlog() {
+  const user = GetType();
   const { userId, blogId } = useParams();
    const [htmlContent, setHtmlContent] = useState("");
   const [blog, setBlog] = useState({});
@@ -34,11 +36,11 @@ function ViewBlog() {
         <p className={classes.blogDescription}>{blog.description}</p>
       </div>
       <div className={classes.writerProfileDiv}>
-        <Avatar />
+        <Avatar src={blog?.createdBy?.profileImage} />
         <div className={classes.writerNameTimeDiv}>
           <div className={classes.writerNameFollowDiv}>
-            <h4>Lorem.</h4>
-            <a href="http://">Follow</a>
+            <h4>{blog?.createdBy?.name}</h4>
+            {user._id == userId ?<></> :<a href="">Follow</a>}
           </div>
           <div className={classes.writerTimeDiv}>
             <p>4 min read</p>
@@ -66,9 +68,7 @@ function ViewBlog() {
       <div
         dangerouslySetInnerHTML={{ __html: htmlContent }}
         className={classes.blogContent}
-      >
-       
-      </div>
+      ></div>
       <div className={classes.likeShareDiv}>
         <div className={classes.likeDiv}>
           <SlLike />

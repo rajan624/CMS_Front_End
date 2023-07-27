@@ -1,18 +1,6 @@
 
 import React from "react";
-import author_1 from "../../images/images/author-1.jpg";
-import author_2 from "../../images/images/author-2.jpg";
-import author_3 from "../../images/images/author-3.jpg";
-import author_4 from "../../images/images/author-4.jpg";
-import author_5 from "../../images/images/author-5.jpg";
-import author_6 from "../../images/images/author-6.jpg";
-
-import recent_1 from "../../images/images/recent-1.jpg";
-import recent_2 from "../../images/images/recent-2.jpg";
-import recent_3 from "../../images/images/recent-3.jpg";
-import recent_4 from "../../images/images/recent-4.jpg";
-import recent_5 from "../../images/images/recent-5.jpg";
-import recent_6 from "../../images/images/recent-6.jpg";
+import Cookies from "universal-cookie";
 import "../Pages/Home/home.module.css";
 import { useEffect } from "react";
 import axios from "axios";
@@ -27,13 +15,17 @@ const CustomHeightstyles100 = {
   "--width": "100px",
 };
 function MyBlogCard() {
+  const cookies = new Cookies()
   const navigate = useNavigate();
   const [recentBlog, setRecentBlog] = useState([]);
   useEffect(() => {
     const fetchRecentBlog = async () => {
       try {
+        const token = cookies.get("token");
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/blog/bestStories`
+          `${process.env.REACT_APP_API_URL}/user/myBlog` , {
+            headers: { Authorization: `${token}` },
+          }
         );
         console.log(response.data);
         setRecentBlog(response.data.data);

@@ -11,6 +11,23 @@
 .image {
   width: 90% !important;
   height: 90% !important;
+  border-radius: 50% !important;
+}
+
+.userDescription{
+   display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+}
+
+.userTags{
+ display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
 }
 
 .imageBlog {
@@ -41,7 +58,7 @@
 .imageNameDiv {
   display: flex;
   flex-direction: row;
-  height: 500px;
+  height: 450px;
 }
 
 .imageDiv {

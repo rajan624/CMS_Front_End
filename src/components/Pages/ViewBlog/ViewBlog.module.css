@@ -47,6 +47,8 @@ gap: 30px;
 .likeShareDiv{
 display: flex;
 justify-content: space-between;
+padding-left: 5vw;
+    padding-right: 5vw;
 }
 .image {
   width: 100% !important;
