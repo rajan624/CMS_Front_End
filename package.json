@@ -52,6 +52,7 @@
     "slate-plugins": "^1.7.2",
     "slate-react": "^0.94.0",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.1",
     "universal-cookie": "^4.0.4",
     "vercel": "^29.1.1"
   },

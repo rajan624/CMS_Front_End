@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./Profile.module.css";
 import { Avatar, Box, Button, Checkbox, Chip, FormControlLabel, Grid, Link, Modal, TextField, Typography } from "@mui/material";
 import { useState } from "react";
@@ -24,6 +24,8 @@ const style = {
   p: 4,
 };
 function Profile() {
+  const [userProfile, setUserProfile] = useState({});
+  const [followButtonText, setFollowButtonText] = useState("Follow");
   const cookies = new Cookies();
     const {
       register,
@@ -47,7 +49,6 @@ function Profile() {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ]);
   const onSubmit = async (data) => {
-    console.log("🚀 ~ file: Profile.js:50 ~ onSubmit ~ data:", data)
     const token = cookies.get("token");
      try {
        await axios
@@ -70,6 +71,74 @@ function Profile() {
        toast.error(error.response.data.msg);
        console.log(error);
      }
+  };
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const token = cookies.get("token");
+      console.log(token);
+      if (!token) {
+        return;
+      }
+      console.log("testing we are token is not working");
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/user/profile/${id}`,
+          {
+            headers: { Authorization: `${token}` },
+          }
+        );
+        setUserProfile(response.data.profile);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+   const follow = async () => {
+     const token = cookies.get("token");
+     console.log(token);
+     if (!token) {
+       return;
+     }
+     try {
+       await axios
+         .get(`${process.env.REACT_APP_API_URL}/user/followUser/${id}`, {
+           headers: { Authorization: `${token}` },
+         })
+         .then((data) => {
+           console.log("🚀 ~ file: ViewBlog.js:75 ~ ).then ~ data:", data);
+           toast.success(data.data.data);
+           setFollowButtonText("Following");
+         })
+         .catch((error) => {
+           toast.error("Something went Wrong");
+         });
+     } catch (error) {
+       console.log(error);
+     }
+   };
+   const startChat = async () => {
+     const token = cookies.get("token");
+     console.log(token);
+     if (!token) {
+       return;
+     }
+     try {
+       await axios
+         .get(`${process.env.REACT_APP_API_URL}/user/startChart/${id}`, {
+           headers: { Authorization: `${token}` },
+         })
+         .then((data) => {
+           console.log("🚀 ~ file: ViewBlog.js:75 ~ ).then ~ data:", data);
+          navigate("/messages")
+         })
+         .catch((error) => {
+           toast.error("Something went Wrong");
+         });
+     } catch (error) {
+       console.log(error);
+     }
    };
   return (
     <div className={classes.mainProfileDiv}>
@@ -78,27 +147,29 @@ function Profile() {
           <div className={classes.imageDiv}>
             <Avatar
               className={classes.image}
-              alt={user?.name}
-              src={user?.profileImage}
+              alt={userProfile?.name}
+              src={userProfile?.profileImage}
               variant="rounded"
             />
           </div>
           <div className={classes.nameDiv}>
-            <h2>{user?.name}</h2>
-            <h4 className={classes.userTags}>{user?.tags}</h4>
-            <p className={classes.userDescription}>{user?.description}</p>
+            <h2>{userProfile?.name}</h2>
+            <h4 className={classes.userTags}>{userProfile?.tags}</h4>
+            <p className={classes.userDescription}>
+              {userProfile?.description}
+            </p>
             <div className={classes.followLikeDiv}>
-              <div>
+              <div className={classes.centerText}>
                 {" "}
-                <p>Post</p>
+                <h4>Post</h4>
                 <p>24</p>{" "}
               </div>
-              <div>
-                <p>Follower</p>
+              <div className={classes.centerText}>
+                <h4>Follower</h4>
                 <p>1 222</p>
               </div>
-              <div>
-                <p>Following</p>
+              <div className={classes.centerText}>
+                <h4>Following</h4>
                 <p>63</p>
               </div>
             </div>
@@ -113,19 +184,14 @@ function Profile() {
                 Edit Profile
               </button>
             ) : (
-              <button
-                onClick={() => {
-                  handleOpen();
-                  reset({ user });
-                  console.log(
-                    "🚀 ~ file: Profile.js:128 ~ Profile ~ user:",
-                    user
-                  );
-                }}
-                className="Black-button"
-              >
-                Follow
-              </button>
+              <>
+                <button onClick={follow} className="Black-button">
+                  {followButtonText}
+                </button>
+                <button onClick={startChat} className="Black-button">
+                  Messages
+                </button>
+              </>
             )}
           </div>
         </div>

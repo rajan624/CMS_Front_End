@@ -40,6 +40,14 @@ display: flex;
 gap: 30px;
 }
 
+.unfilled {
+  cursor: pointer;
+}
+
+.filled {
+  cursor: pointer;
+  fill: black; /* Fill the heart icon with black color */
+}
 .writerTimeDiv{
 display: flex;
 gap: 30px;

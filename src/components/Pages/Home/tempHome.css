@@ -536,7 +536,7 @@ body.active { overflow: hidden; }
   gap: 10px;
 }
 
-.recommended .blog-card { margin-block-end: 5px; }
+.recommended .blog-card { margin-block-end: 5px; cursor: pointer; }
 
 
 

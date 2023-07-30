@@ -32,7 +32,7 @@ function RecentCard() {
      const fetchRecentBlog = async () => {
        try {
          const response = await axios.get(
-           `${process.env.REACT_APP_API_URL}/blog/bestStories`
+           `${process.env.REACT_APP_API_URL}/blog/bestAuthorStories`
          );
          console.log(response.data);
          setRecentBlog(response.data.data);

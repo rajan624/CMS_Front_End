@@ -18,7 +18,7 @@ function RecommendedCard() {
      const fetchRecommendedBlog = async () => {
        try {
          const response = await axios.get(
-           `${process.env.REACT_APP_API_URL}/blog/bestStories`
+           `${process.env.REACT_APP_API_URL}/blog/recommendedStories`
          );
          console.log(response.data);
          setRecommendedBlog(response.data.data);

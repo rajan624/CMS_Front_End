@@ -15,9 +15,6 @@ const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [userType, setUser] = useState({
-    organiastion: "",
-    role: "user",
-    isAdmin: false,
   });
 
   useEffect(() => {

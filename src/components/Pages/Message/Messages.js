@@ -2,9 +2,77 @@ import React, { useState } from 'react'
 import classes from "./Messages.module.css";
 import Header from '../../Header/Header';
 import { IoMdSend } from "react-icons/io";
+import { GetType } from '../../../utilities/context/authContext';
+import { useEffect } from 'react';
+import { io } from 'socket.io-client';
+import { useRef } from 'react';
+import Cookies from 'universal-cookie';
+import { GTranslate } from '@material-ui/icons';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 function Messages() {
-    const [contactArray, setContactArray] = useState([1, 2, 3, 4, 5]);
-    const [messageArray, setMessageArray] = useState([1, 2, 3, 4, 5]);
+  const cookies = new Cookies();
+    const [contactArray, setContactArray] = useState([]);
+  const [messageArray, setMessageArray] = useState([1, 2, 3, 4, 5]);
+  var socket
+  const user = GetType();
+  useEffect(() => {
+    if (user._id) {  
+      socket = io(process.env.REACT_APP_API_IMAGE);
+      socket.emit("setup", {id:user._id});
+      socket.on("connected", () => {
+        console.log("connected")
+  });
+      socket.on("typing", () => {
+        console.log("connected");
+      });
+      socket.on("stop typing", () => {
+        console.log("connected");
+      });
+      }
+  }, [user]);
+
+  useEffect(() => {
+     const getAllChat = async () => {
+       const token = cookies.get("token");
+       console.log(token);
+       if (!token) {
+         return;
+       }
+       try {
+         await axios.get(`${process.env.REACT_APP_API_URL}/user/fetchChats`, {
+             headers: { Authorization: `${token}` },
+           })
+           .then((data) => {
+             console.log("🚀 ~ file: ViewBlog.js:75 ~ ).then ~ data:", data);
+             setContactArray(data.data)
+           })
+           .catch((error) => {
+             toast.error("Something went Wrong");
+           });
+       } catch (error) {
+         console.log(error);
+       }
+    };
+    getAllChat();
+  },[])
+  
+  const send = () => {
+
+  //   let data = {
+  //     content:
+  //     sender:
+  //   }
+  //   socket.emit("newMessages", data);
+   }
+
+  // useEffect(() => {
+  //    socket.on("broadcast", (data) => console.log(data));
+  // },[])
+  const getSenderDetails = (data) => {
+    const foundObject = data.find((obj) => obj._id != user.id);
+    return foundObject || {};
+  }
     return (
       <>
         <Header />
@@ -27,126 +95,29 @@ function Messages() {
                 </span>
               </div>
 
-              <div
-                className={`${classes.list_search_user_chat}`}
-              >
-                <div className={classes.user_chat} data-username="Maria Dennis">
-                  <div class={classes.user_chat_img}>
-                    <img
-                      src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt=""
-                    />
-                    <div className={classes.offline}></div>
-                  </div>
-
-                  <div className={classes.user_chat_text}>
-                    <p className={`${classes.mt_0} ${classes.mb_0}`}>
-                      <strong>Maria Dennis</strong>
-                    </p>
-                    <small>Hi, how are you?</small>
-                  </div>
-                </div>
-                <div className={classes.user_chat} data-username="Maria Dennis">
-                  <div class={classes.user_chat_img}>
-                    <img
-                      src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt=""
-                    />
-                    <div className={classes.offline}></div>
-                  </div>
-
-                  <div className={classes.user_chat_text}>
-                    <p className={`${classes.mt_0} ${classes.mb_0}`}>
-                      <strong>Maria Dennis</strong>
-                    </p>
-                    <small>Hi, how are you?</small>
-                  </div>
-                </div>
-                <div className={classes.user_chat} data-username="Maria Dennis">
-                  <div class={classes.user_chat_img}>
-                    <img
-                      src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt=""
-                    />
-                    <div className={classes.offline}></div>
-                  </div>
-
-                  <div className={classes.user_chat_text}>
-                    <p className={`${classes.mt_0} ${classes.mb_0}`}>
-                      <strong>Maria Dennis</strong>
-                    </p>
-                    <small>Hi, how are you?</small>
-                  </div>
-                </div>
-                <div className={classes.user_chat} data-username="Maria Dennis">
-                  <div class={classes.user_chat_img}>
-                    <img
-                      src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt=""
-                    />
-                    <div className={classes.offline}></div>
-                  </div>
-
-                  <div className={classes.user_chat_text}>
-                    <p className={`${classes.mt_0} ${classes.mb_0}`}>
-                      <strong>Maria Dennis</strong>
-                    </p>
-                    <small>Hi, how are you?</small>
-                  </div>
-                </div>
-                <div className={classes.user_chat} data-username="Maria Dennis">
-                  <div class={classes.user_chat_img}>
-                    <img
-                      src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt=""
-                    />
-                    <div className={classes.offline}></div>
-                  </div>
-
-                  <div className={classes.user_chat_text}>
-                    <p className={`${classes.mt_0} ${classes.mb_0}`}>
-                      <strong>Maria Dennis</strong>
-                    </p>
-                    <small>Hi, how are you?</small>
-                  </div>
-                </div>
-
-                <div
-                  className={classes.user_chat}
-                  data-username="Jorge Harrinson"
-                >
-                  <div className={classes.user_chat_img}>
-                    <img
-                      src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt=""
-                    />
-                    <div className={classes.online}></div>
-                  </div>
-
-                  <div className={classes.user_chat_text}>
-                    <p className={`${classes.mt_0} ${classes.mb_0}`}>
-                      <strong>Jorge Harrinson</strong>
-                    </p>
-                    <small>Hi, how are you?</small>
-                  </div>
-                </div>
-
-                <div className={classes.user_chat} data-username="Carla Terry">
-                  <div className={classes.user_chat_img}>
-                    <img
-                      src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt=""
-                    />
-                    <div className={classes.offline}></div>
-                  </div>
-
-                  <div className={classes.user_chat_text}>
-                    <p className={`${classes.mt_0} ${classes.mb_0}`}>
-                      <strong>Carla Terry</strong>
-                    </p>
-                    <small>Hi, how are you?</small>
-                  </div>
-                </div>
+              <div className={`${classes.list_search_user_chat}`}>
+                {contactArray.map((data, index) => {
+                  return (
+                    <div
+                      className={classes.user_chat}
+                      data-username="Maria Dennis"
+                    >
+                      <div class={classes.user_chat_img}>
+                        <img
+                          src={getSenderDetails(data?.users)?.profileImage}
+                          alt=""
+                        />
+                        <div className={classes.offline}></div>
+                      </div>
+                      <div className={classes.user_chat_text}>
+                        <p className={`${classes.mt_0} ${classes.mb_0}`}>
+                          <strong>{getSenderDetails(data?.users)?.name}</strong>
+                        </p>
+                        <small>Hi, how are you?</small>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div
