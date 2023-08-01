@@ -25,7 +25,7 @@ const style = {
 };
 function Profile() {
   const [userProfile, setUserProfile] = useState({});
-  const [followButtonText, setFollowButtonText] = useState("Follow");
+  const [followButtonText, setFollowButtonText] = useState("");
   const cookies = new Cookies();
     const {
       register,
@@ -41,10 +41,7 @@ function Profile() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
   const navigate = useNavigate();
-  const [blogArray, setBlogArray] = useState([1, 2, 3, 4, 5, 6]);
-  const [messageArray, setMessageArray] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-  ]);
+  const [messageArray, setMessageArray] = useState([]);
   const [suggestionArray, setSuggestionArray] = useState([
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ]);
@@ -88,13 +85,20 @@ function Profile() {
           }
         );
         setUserProfile(response.data.profile);
+        setFollowButtonText(user.following.includes(response.data.profile._id) ? "Following": "Follow")
+        console.log(
+          "🚀 ~ file: Profile.js:88 ~ fetchUserProfile ~ profile:",
+          response.data.profile
+        );
       } catch (error) {
         console.log(error);
       }
     };
-
-    fetchUserProfile();
-  }, []);
+    if (user._id) {
+  
+      fetchUserProfile();
+}
+  }, [user]);
    const follow = async () => {
      const token = cookies.get("token");
      console.log(token);
@@ -109,10 +113,12 @@ function Profile() {
          .then((data) => {
            console.log("🚀 ~ file: ViewBlog.js:75 ~ ).then ~ data:", data);
            toast.success(data.data.data);
+           window.location.reload();
            setFollowButtonText("Following");
          })
          .catch((error) => {
-           toast.error("Something went Wrong");
+           console.log("🚀 ~ file: Profile.js:120 ~ follow ~ error:", error)
+           toast.error(error?.response?.data?.data);
          });
      } catch (error) {
        console.log(error);
@@ -139,7 +145,35 @@ function Profile() {
      } catch (error) {
        console.log(error);
      }
-   };
+  };
+   useEffect(() => {
+     const getAllChat = async () => {
+       const token = cookies.get("token");
+       console.log(token);
+       if (!token) {
+         return;
+       }
+       try {
+         await axios
+           .get(`${process.env.REACT_APP_API_URL}/user/fetchChats`, {
+             headers: { Authorization: `${token}` },
+           })
+           .then((data) => {
+             setMessageArray(data.data);
+           })
+           .catch((error) => {
+             toast.error("Something went Wrong");
+           });
+       } catch (error) {
+         console.log(error);
+       }
+     };
+     getAllChat();
+   }, []);
+    const getSenderDetails = (data) => {
+      const foundObject = data.find((obj) => obj._id != user._id);
+      return foundObject || {};
+    };
   return (
     <div className={classes.mainProfileDiv}>
       <div className={classes.profileDiv}>
@@ -162,15 +196,15 @@ function Profile() {
               <div className={classes.centerText}>
                 {" "}
                 <h4>Post</h4>
-                <p>24</p>{" "}
+                <p>{userProfile?.post}</p>{" "}
               </div>
               <div className={classes.centerText}>
                 <h4>Follower</h4>
-                <p>1 222</p>
+                <p>{userProfile?.follower}</p>
               </div>
               <div className={classes.centerText}>
                 <h4>Following</h4>
-                <p>63</p>
+                <p>{userProfile?.following}</p>
               </div>
             </div>
             {id == user._id ? (
@@ -186,7 +220,7 @@ function Profile() {
             ) : (
               <>
                 <button onClick={follow} className="Black-button">
-                  {followButtonText}
+                   {followButtonText}
                 </button>
                 <button onClick={startChat} className="Black-button">
                   Messages
@@ -196,7 +230,7 @@ function Profile() {
           </div>
         </div>
         <div className={classes.storyDiv}>
-          <MyBlogCard />
+          <MyBlogCard id={id} />
         </div>
       </div>
 
@@ -206,13 +240,19 @@ function Profile() {
           <div className={classes.messagesGroup}>
             {messageArray.map((data, index) => {
               return (
-                <div className={classes.messages}>
-                  <Avatar />
+                <div
+                  onClick={() => {
+                    navigate("/messages");
+                  }}
+                  className={classes.messages}
+                >
+                  <Avatar src={getSenderDetails(data.users).profileImage} />
                   <div className={classes.messagesName}>
                     {" "}
-                    <h4>Lorem, ipsum.</h4> <p>Lorem ipsum dolor sit amet.</p>{" "}
+                    <h4> {getSenderDetails(data?.users).name} </h4>{" "}
+                    <p>{data?.latestMessage?.content}</p>{" "}
                   </div>
-                  <Badge badgeContent={4} color="success"></Badge>
+                  {/* <Badge badgeContent={4} color="success"></Badge> */}
                 </div>
               );
             })}

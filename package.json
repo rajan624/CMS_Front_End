@@ -45,6 +45,7 @@
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
+    "react-time-ago": "^7.2.1",
     "react-toastify": "^9.1.2",
     "slate": "^0.94.0",
     "slate-history": "^0.93.0",
@@ -53,6 +54,7 @@
     "slate-react": "^0.94.0",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.1",
+    "timeago-react": "^3.0.6",
     "universal-cookie": "^4.0.4",
     "vercel": "^29.1.1"
   },

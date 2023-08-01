@@ -14,7 +14,7 @@ const CustomHeightstyles100 = {
   "--height": "100px",
   "--width": "100px",
 };
-function MyBlogCard() {
+function MyBlogCard({id}) {
   const cookies = new Cookies()
   const navigate = useNavigate();
   const [recentBlog, setRecentBlog] = useState([]);
@@ -23,7 +23,7 @@ function MyBlogCard() {
       try {
         const token = cookies.get("token");
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/user/myBlog` , {
+          `${process.env.REACT_APP_API_URL}/user/myBlog/${id}` , {
             headers: { Authorization: `${token}` },
           }
         );

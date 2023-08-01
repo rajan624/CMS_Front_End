@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./ViewBlog.module.css";
-import { Avatar } from "@mui/material";
+import { Avatar, Badge } from "@mui/material";
 import { SlLike } from "react-icons/sl";
 import { AiOutlineComment, AiFillLike } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
@@ -50,9 +50,38 @@ function ViewBlog() {
           }
       ).then((data) => {
         toast.success(data.data.data);
+        setBlog({...blog , like:blog.like+1  })
       }).catch((error) => {
           toast.error("Something went Wrong")
         })
+        setFilled(true);
+      } catch (error) {
+        console.log(error);
+      }
+  }
+  
+  const bookmarkBlog = async () => {
+   const token = cookies.get("token");
+      console.log(token)
+      if (!token) {
+        return;
+      }
+      console.log("testing we are token is not working")
+      try {
+      await axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/user/bookmarkMyBlog/${blogId}`,
+          {
+            headers: { Authorization: `${token}` },
+          }
+        )
+        .then((data) => {
+          toast.success(data.data.data);
+          setBlog({ ...blog, like: blog.like + 1 });
+        })
+        .catch((error) => {
+          toast.error("Something went Wrong");
+        });
         setFilled(true);
       } catch (error) {
         console.log(error);
@@ -115,35 +144,39 @@ function ViewBlog() {
               <button onClick={follow}>Follow</button>
             )}
           </div>
-          <div className={classes.writerTimeDiv}>
+          {/* <div className={classes.writerTimeDiv}>
             <p>4 min read</p>
             <p>3 min read</p>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={classes.likeShareDiv}>
         <div className={classes.likeDiv}>
-          <svg
-            onClick={likeBlog}
-            className={filled ? classes.filled : classes.unfilled}
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Like</title>
-            <path
-              d="M12 21.35l-1.45-1.32C5.4 16.36 2 13.25 2 9.5 2 7.42 3.29 5.53 5.34 4.58c1.95-.91 4.17-.58 6 .75 1.83-1.33 4.05-1.66 6-.75 2.05.95 3.34 2.84 3.34 5.01 0 3.75-3.4 6.86-8.55 10.54L12 21.35z"
-              stroke="black" // Set the border color to black
-              strokeWidth="2" // Set the border width
-              fill={filled ? "black" : "transparent"} // Set the fill color to black if filled, otherwise transparent
-            />
-          </svg>
-          <AiOutlineComment size={30} />
-        </div>
+          <Badge badgeContent={blog?.like} color="primary">
+            <svg
+              onClick={likeBlog}
+              className={filled ? classes.filled : classes.unfilled}
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>Like</title>
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 16.36 2 13.25 2 9.5 2 7.42 3.29 5.53 5.34 4.58c1.95-.91 4.17-.58 6 .75 1.83-1.33 4.05-1.66 6-.75 2.05.95 3.34 2.84 3.34 5.01 0 3.75-3.4 6.86-8.55 10.54L12 21.35z"
+                stroke="black" // Set the border color to black
+                strokeWidth="2" // Set the border width
+                fill={filled ? "black" : "transparent"} // Set the fill color to black if filled, otherwise transparent
+              />
+            </svg>
+          </Badge>
+          {/* 
+          <AiOutlineComment size={30} /> */}
+        </div>{" "}
         <div className={classes.shareDiv}>
           <svg
+            onClick={bookmarkBlog}
             title="bookmark"
             className={false ? "filled" : "unfilled"} // Add the class based on the filled state
             width="30"
@@ -160,7 +193,8 @@ function ViewBlog() {
               fill={false ? "black" : "transparent"} // Set the fill color to black if filled, otherwise transparent
             />
           </svg>
-          <FiShare size={30} />
+          <FiShare onClick={() => { navigator.share({
+      url: window.location.url })}} size={30} />
         </div>
       </div>
       <div>

@@ -19,12 +19,8 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from "reac
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Button, Grid, Input, Modal, Stack, TextField } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { makeStyles } from "@mui/styles";
 import CloseIcon from "@mui/icons-material/Close";
 import Cookies from "universal-cookie";
-import axios from "axios";
-import { toast } from "react-toastify";
 const style = {
   position: "absolute",
   top: "50%",
@@ -100,11 +96,13 @@ const Header = ({ darkMode, setDarkMode }) => {
 
     } else if (value == "Add Article") {
       if (user?.email) {
-         navigate("/Editor");
+        navigate("/Editor");
         // handleOpen()
       } else {
-         navigate("/login");
+        navigate("/login");
       }
+    } else if (value == "Messages") {
+        navigate("/messages");
     } else if (value == "Profile") {
       navigate(`/profile/${user._id}`);
     }
@@ -252,6 +250,16 @@ const Header = ({ darkMode, setDarkMode }) => {
                       Add Article
                     </Typography>
                   </MenuItem>
+                  {user?.email ?
+                    <MenuItem
+                      onClick={() => {
+                        profileMenu("Messages");
+                      }}
+                    >
+                      <Typography sx={{ color: "#000" }} textAlign="center">
+                        Messages
+                      </Typography>
+                    </MenuItem> : <></>}
                   <Search>
                     <SearchIconWrapper>
                       <SearchIcon />
@@ -298,6 +306,25 @@ const Header = ({ darkMode, setDarkMode }) => {
                 >
                   Add Article
                 </Button>
+                {user?.email ? (
+                  <Button
+                    onClick={() => {
+                      profileMenu("Messages");
+                    }}
+                    sx={{
+                      my: 2,
+                      mr: 2,
+                      color: "#000",
+                      fontWeight: 600,
+                      fontSize: "1.5rem",
+                      display: "block",
+                    }}
+                  >
+                    Messages
+                  </Button>
+                ) : (
+                  <></>
+                )}
                 <Search>
                   <SearchIconWrapper>
                     <SearchIcon />
