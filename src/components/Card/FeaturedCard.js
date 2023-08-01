@@ -1,21 +1,10 @@
 import React from 'react'
-import featured_1 from "../../images/images/featured-1.jpg";
-import featured_2 from "../../images/images/featured-2.jpg";
-import featured_3 from "../../images/images/featured-3.jpg";
-import featured_4 from "../../images/images/featured-4.jpg";
-import featured_5 from "../../images/images/featured-5.jpg";
-import featured_6 from "../../images/images/featured-6.jpg";
-import author_1 from "../../images/images/author-1.jpg";
-import author_2 from "../../images/images/author-2.jpg";
-import author_3 from "../../images/images/author-3.jpg";
-import author_4 from "../../images/images/author-4.jpg";
-import author_5 from "../../images/images/author-5.jpg";
-import author_6 from "../../images/images/author-6.jpg";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import classes1 from "./CardComman.module.css";
 const CustomHeightstyles500 = {
   "--height": "600px",
   "--width": "500px",
@@ -55,11 +44,12 @@ function FeaturedCard() {
           {featuredBlog.map((blog, index) => {
             return (
               <li
+                className={`${classes1.boxShadow} scrollbar-item `}
                 onClick={() => {
-                   navigate(`/${blog.createdBy._id}/${blog._id}`);
+                  navigate(`/${blog.createdBy._id}/${blog._id}`);
                 }}
                 key={index}
-                class="scrollbar-item"
+                // class="scrollbar-item"
               >
                 <div class="blog-card">
                   <figure
@@ -81,7 +71,7 @@ function FeaturedCard() {
                       <li
                         onClick={(e) => {
                           e.stopPropagation();
-                            navigate(`/profile/${blog.createdBy._id}`);
+                          navigate(`/profile/${blog.createdBy._id}`);
                         }}
                         class="avatar-item"
                       >

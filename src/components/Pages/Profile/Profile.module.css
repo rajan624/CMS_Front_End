@@ -56,6 +56,7 @@
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    border: 1px solid;
 }
 
 .imageNameDiv {
@@ -112,16 +113,18 @@
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    border: 1px solid;
 }
 
 .suggestionDiv {
   height: 400px;
-  padding: 30px;
+  padding: 10px;
   border-radius: 16px;
   -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    border: 1px solid;
 }
 
 .suggestionGroup{
@@ -130,12 +133,18 @@
     height: 302px;
     overflow-y: scroll;
     flex-wrap: wrap;
+   gap: 5px; 
 }
 
 .suggestion{
 display: flex;
     flex-direction: column;
-    width: 85px;
+    width: 120px;
+    border-radius: 16px;
+    padding: 10px;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    border: 1px solid;
 }
 
 .messages {
@@ -145,7 +154,7 @@ display: flex;
     align-items: center;
         justify-content: flex-start;
     gap: 30px;
-    margin: 0.5vw;
+    margin: 0.3vw;
    border: 1px solid;
    border-radius: 16px;
 }
@@ -157,7 +166,6 @@ display: flex;
 .messagesGroup{
     display: flex;
     flex-direction: column;
-    gap: 20px;
         overflow-y: scroll;
     height: 500px;
 

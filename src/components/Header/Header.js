@@ -179,7 +179,7 @@ const Header = ({ darkMode, setDarkMode }) => {
     <>
       <ThemeProvider theme={theme}>
         {" "}
-        <AppBar position="static">
+        <AppBar  sx={{border:"1px solid" , borderRadius:"0px 0px 16px 16px" }} position="static">
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Typography
@@ -403,6 +403,8 @@ const Header = ({ darkMode, setDarkMode }) => {
             width: { xs: "95%", md: "80%" },
             overflow: "auto",
             height: "70%",
+            border: "1px solid",
+    borderRadius: "16px",
             boxShadow:
               "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
           }}

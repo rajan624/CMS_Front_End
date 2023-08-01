@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../Pages/Home/home.module.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import classes1 from "./CardComman.module.css";
 const CustomHeightstyles300 = {
   "--height": "360px",
   "--width": "300px",
@@ -40,6 +41,7 @@ function RecommendedCard() {
           {recommendedBlog.map((blog, index) => {
             return (
               <li
+                className={classes1.boxShadow}
                 onClick={() => {
                   navigate(`/${blog.createdBy._id}/${blog._id}`);
                 }}

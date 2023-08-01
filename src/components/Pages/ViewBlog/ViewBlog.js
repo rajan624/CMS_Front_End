@@ -105,7 +105,7 @@ function ViewBlog() {
           toast.success(data.data.data);
           setFilled(true);
         }).catch((error) => {
-          toast.error("Something went Wrong")
+          toast.error(error?.response?.data?.data);
         })
       } catch (error) {
         console.log(error);
@@ -119,6 +119,9 @@ function ViewBlog() {
         <p className={classes.blogDescription}>{blog.description}</p>
       </div>
       <div className={classes.writerProfileDiv}>
+       
+
+        <div className={classes.writerNameTimeDiv}>
         <Avatar
           sx={{ cursor: "pointer" }}
           onClick={(e) => {
@@ -126,8 +129,7 @@ function ViewBlog() {
             navigate(`/profile/${blog.createdBy._id}`);
           }}
           src={blog?.createdBy?.profileImage}
-        />
-        <div className={classes.writerNameTimeDiv}>
+          />
           <div className={classes.writerNameFollowDiv}>
             <h4
               style={{ cursor: "pointer" }}
@@ -135,68 +137,71 @@ function ViewBlog() {
                 e.stopPropagation();
                 navigate(`/profile/${blog.createdBy._id}`);
               }}
-            >
+              >
               {blog?.createdBy?.name}
             </h4>
             {user._id != userId ? (
-              <></>
-            ) : (
               <button onClick={follow}>Follow</button>
-            )}
+              ) : (
+                <></>
+                )}
           </div>
-          {/* <div className={classes.writerTimeDiv}>
-            <p>4 min read</p>
-            <p>3 min read</p>
-          </div> */}
         </div>
-      </div>
-      <div className={classes.likeShareDiv}>
-        <div className={classes.likeDiv}>
-          <Badge badgeContent={blog?.like} color="primary">
+        <div className={classes.likeShareDiv}>
+          <div className={classes.likeDiv}>
+            <Badge badgeContent={blog?.like} color="primary">
+              <svg
+                onClick={likeBlog}
+                className={filled ? classes.filled : classes.unfilled}
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title>Like</title>
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 16.36 2 13.25 2 9.5 2 7.42 3.29 5.53 5.34 4.58c1.95-.91 4.17-.58 6 .75 1.83-1.33 4.05-1.66 6-.75 2.05.95 3.34 2.84 3.34 5.01 0 3.75-3.4 6.86-8.55 10.54L12 21.35z"
+                  stroke="black" // Set the border color to black
+                  strokeWidth="2" // Set the border width
+                  fill={filled ? "black" : "transparent"} // Set the fill color to black if filled, otherwise transparent
+                />
+              </svg>
+            </Badge>
+            {/* 
+          <AiOutlineComment size={30} /> */}
+          </div>{" "}
+          <div className={classes.shareDiv}>
             <svg
-              onClick={likeBlog}
-              className={filled ? classes.filled : classes.unfilled}
+              onClick={bookmarkBlog}
+              title="bookmark"
+              className={false ? "filled" : "unfilled"} // Add the class based on the filled state
               width="30"
               height="30"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <title>Like</title>
+              <title>Add To Bookmark</title> {/* Tooltip */}
               <path
-                d="M12 21.35l-1.45-1.32C5.4 16.36 2 13.25 2 9.5 2 7.42 3.29 5.53 5.34 4.58c1.95-.91 4.17-.58 6 .75 1.83-1.33 4.05-1.66 6-.75 2.05.95 3.34 2.84 3.34 5.01 0 3.75-3.4 6.86-8.55 10.54L12 21.35z"
+                d="M4 2C3.44771 2 3 2.44772 3 3V21L12 18L21 21V3C21 2.44772 20.5523 2 20 2H4Z"
                 stroke="black" // Set the border color to black
                 strokeWidth="2" // Set the border width
-                fill={filled ? "black" : "transparent"} // Set the fill color to black if filled, otherwise transparent
+                fill={false ? "black" : "transparent"} // Set the fill color to black if filled, otherwise transparent
               />
             </svg>
-          </Badge>
-          {/* 
-          <AiOutlineComment size={30} /> */}
-        </div>{" "}
-        <div className={classes.shareDiv}>
-          <svg
-            onClick={bookmarkBlog}
-            title="bookmark"
-            className={false ? "filled" : "unfilled"} // Add the class based on the filled state
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Add To Bookmark</title> {/* Tooltip */}
-            <path
-              d="M4 2C3.44771 2 3 2.44772 3 3V21L12 18L21 21V3C21 2.44772 20.5523 2 20 2H4Z"
-              stroke="black" // Set the border color to black
-              strokeWidth="2" // Set the border width
-              fill={false ? "black" : "transparent"} // Set the fill color to black if filled, otherwise transparent
+            <FiShare
+              onClick={() => {
+                navigator.share({
+                  url: window.location.url,
+                });
+              }}
+              size={30}
             />
-          </svg>
-          <FiShare onClick={() => { navigator.share({
-      url: window.location.url })}} size={30} />
+          </div>
         </div>
       </div>
+
       <div>
         <Avatar
           variant="rounded"

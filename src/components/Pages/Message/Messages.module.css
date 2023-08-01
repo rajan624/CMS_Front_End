@@ -14,7 +14,9 @@
 }
 
 
-
+.defualtChatImage{
+    border-radius: 0px 0px 16px 16px;
+}
 .container{
     max-width: 1300px;
     margin: 0 auto;
@@ -127,8 +129,8 @@
 .content_chat .content_chat_user .list_search_user_chat {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 10px;
+    gap: 5px;
+    margin: 10px;
     height: 100%;
     max-height: 490px;
     overflow-y: auto;
@@ -166,18 +168,20 @@
     padding: 10px 15px;
     border-radius: 25px;
     cursor: pointer;
+        border-radius: 16px;
+    border: 1px solid;
+    padding: 0.5vw;
 }
 
 .content_chat .content_chat_user .list_search_user_chat .user_chat:hover{
-    background-color:  hsl(225, 9%, 9%);
-    color: white;
+      transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
 .content_chat .content_chat_user .list_search_user_chat .user_chat.active{
-    background-color:  hsl(225, 9%, 9%);
-    color: white; 
+     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
-
 .content_chat .content_chat_user .list_search_user_chat .user_chat .user_chat_img{
     position: relative;
     width: 60px;
@@ -278,7 +282,7 @@
     gap: 15px;
     box-sizing: border-box;
     padding: 15px;
-    height: 500px;
+    height: 515px;
     margin: 0;
     overflow: auto;
     background-color: #ececec;
@@ -333,12 +337,17 @@
 }
 
 .content_chat .content_chat_message_user .body_chat_message_user .message_user_left .message_user_left_text{
-    position: relative;
+        position: relative;
     padding: 15px 25px;
     background-color: #ffffff;
     border-radius: 15px;
     color: #949494;
     max-width: 250px;
+    border-radius: 16px;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    border: 1px solid;
+    padding: 0.5vw;
 }
 
 .content_chat .content_chat_message_user .body_chat_message_user .message_user_left .message_user_left_text::before{
@@ -363,6 +372,7 @@
     display: flex;
     gap: 10px;
     justify-content: end;
+    flex-direction: row-reverse;
     align-items: center;
 }
 
@@ -374,12 +384,17 @@
 }
 
 .content_chat .content_chat_message_user .body_chat_message_user .message_user_right .message_user_right_text{
-    position: relative;
+        position: relative;
     padding: 15px 25px;
-    background-color:  hsl(225, 9%, 9%);;
+    background-color: hsl(225, 9%, 9%);
     border-radius: 15px;
     color: white;
     width: 250px;
+    border-radius: 16px;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    /* border: 1px solid; */
+    padding: 0.5vw;
 }
 
 .content_chat .content_chat_message_user .body_chat_message_user .message_user_right .message_user_right_text::before{
@@ -394,13 +409,17 @@
 }
 
 .content_chat .content_chat_message_user .footer_chat_message_user {
-    background-color:  hsl(225, 9%, 9%);;
     padding: 15px 25px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    border-radius: 16px;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    border: 1px solid;
+    padding: 0.5vw;
 }
 
 .content_chat .content_chat_message_user .footer_chat_message_user .message_user_send{
@@ -433,7 +452,13 @@
     background-color: #daa520;
 }
 
+@media (max-width : 1200px){
+.defualtChatImage{
+        height: 90vh;
+    }
+}
 @media (max-width: 913px){
+    
     .content_chat{
         padding: 0px;
     }
@@ -511,13 +536,13 @@
     
 
     .content_chat .content_chat_user .list_search_user_chat .user_chat {
-        width: 60px;
+        /* width: 60px;
         height: 60px;
         padding: 10px;
         background-color: #19b6d3;
         max-height: -moz-fit-content;
         max-height: fit-content;
-        border-radius: 50%;
+        border-radius: 50%; */
     }
 
     .content_chat .content_chat_user .list_search_user_chat .user_chat .user_chat-text {

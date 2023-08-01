@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import classes1 from "./CardComman.module.css"
 const CustomHeightstyles550 = {
   "--height": "660px",
   "--width": "550px",
@@ -43,6 +44,7 @@ function MyBlogCard({id}) {
           {recentBlog.map((blog, index) => {
             return (
               <li
+                className={classes1.boxShadow}
                 onClick={() => {
                   navigate(`/${blog.createdBy._id}/${blog._id}`);
                 }}
@@ -60,8 +62,6 @@ function MyBlogCard({id}) {
                       alt="Creating is a privilege but it’s also a gift"
                       class="img-cover"
                     />
-
-                    
                   </figure>
 
                   <div class="card-content">

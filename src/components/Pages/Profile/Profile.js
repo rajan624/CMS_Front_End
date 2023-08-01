@@ -264,7 +264,7 @@ function Profile() {
             {suggestionArray.map((data, index) => {
               return (
                 <div className={classes.suggestion}>
-                  <Avatar />
+                  <Avatar sx={{width:"60px" , height:"60px" }} />
                   <h5>Lorem, ipsum.</h5>
                 </div>
               );

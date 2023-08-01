@@ -13,6 +13,7 @@ import recent_4 from "../../images/images/recent-4.jpg";
 import recent_5 from "../../images/images/recent-5.jpg";
 import recent_6 from "../../images/images/recent-6.jpg";
 import "../Pages/Home/home.module.css";
+import classes1 from "./CardComman.module.css";
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
@@ -142,6 +143,7 @@ function RecentCard() {
           {recentBlog.map((blog, index) => {
             return (
               <li
+                className={classes1.boxShadow}
                 onClick={() => {
                   navigate(`/${blog.createdBy._id}/${blog._id}`);
                 }}
