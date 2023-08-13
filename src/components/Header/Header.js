@@ -21,6 +21,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Button, Grid, Input, Modal, Stack, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Cookies from "universal-cookie";
+import { useCallback } from "react";
+import classes from "./Header.module.css"
 const style = {
   position: "absolute",
   top: "50%",
@@ -43,6 +45,7 @@ const theme = createTheme({
 });
 const Header = ({ darkMode, setDarkMode }) => {
   const cookies = new Cookies();
+  const [searchText , setSearchText] = useState("")
  const [searchParams] = useSearchParams();
   const googleToken = searchParams.get("googleToken");
   
@@ -118,10 +121,11 @@ const Header = ({ darkMode, setDarkMode }) => {
       backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: "100%",
+        width: "25vw",
+    padding: "0.3vw",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: "auto",
+      width: "25vw",
       marginLeft:"1vw"
     },
   }));
@@ -145,9 +149,10 @@ const Header = ({ darkMode, setDarkMode }) => {
       transition: theme.transitions.create("width"),
       width: "100%",
       [theme.breakpoints.up("sm")]: {
-        width: "12ch",
+        width: "20vw",
+        fontSize:"1.5rem",
         "&:focus": {
-          width: "20ch",
+          width: "20vw",
         },
       },
     },
@@ -175,11 +180,17 @@ const Header = ({ darkMode, setDarkMode }) => {
       
     }
   }
+   const handleSearchInputChange = useCallback((e) => {
+     setSearchText(e.target.value);
+   }, []);
   return (
     <>
       <ThemeProvider theme={theme}>
         {" "}
-        <AppBar  sx={{border:"1px solid" , borderRadius:"0px 0px 16px 16px" }} position="static">
+        <AppBar
+          sx={{ border: "1px solid", borderRadius: "0px 0px 16px 16px" }}
+          position="static"
+        >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Typography
@@ -250,7 +261,7 @@ const Header = ({ darkMode, setDarkMode }) => {
                       Add Article
                     </Typography>
                   </MenuItem>
-                  {user?.email ?
+                  {user?.email ? (
                     <MenuItem
                       onClick={() => {
                         profileMenu("Messages");
@@ -259,12 +270,17 @@ const Header = ({ darkMode, setDarkMode }) => {
                       <Typography sx={{ color: "#000" }} textAlign="center">
                         Messages
                       </Typography>
-                    </MenuItem> : <></>}
+                    </MenuItem>
+                  ) : (
+                    <></>
+                  )}
+
                   <Search>
                     <SearchIconWrapper>
                       <SearchIcon />
                     </SearchIconWrapper>
                     <StyledInputBase
+                      onChange={handleSearchInputChange}
                       placeholder="Search…"
                       inputProps={{ "aria-label": "search" }}
                     />
@@ -325,15 +341,30 @@ const Header = ({ darkMode, setDarkMode }) => {
                 ) : (
                   <></>
                 )}
-                <Search>
+                <div>
+                  <form action="/action_page.php">
+                    <input
+                      style={{ border: "1px solid black" }}
+                      type="text"
+                      className={classes.searchbar}
+                      placeholder="Search.."
+                      name="search"
+                    />
+                    <button type="submit">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </form>
+                </div>
+                {/* <Search>
                   <SearchIconWrapper>
                     <SearchIcon />
                   </SearchIconWrapper>
                   <StyledInputBase
+                    onChange={handleSearchInputChange}
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
                   />
-                </Search>
+                </Search> */}
               </Box>
 
               <Box sx={{ flexGrow: 0 }}>
@@ -404,7 +435,7 @@ const Header = ({ darkMode, setDarkMode }) => {
             overflow: "auto",
             height: "70%",
             border: "1px solid",
-    borderRadius: "16px",
+            borderRadius: "16px",
             boxShadow:
               "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
           }}

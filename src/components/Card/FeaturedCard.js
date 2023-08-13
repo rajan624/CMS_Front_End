@@ -13,7 +13,7 @@ const CustomHeightstyles100 = {
   "--height": "100px",
   "--width": "100px",
 };
-function FeaturedCard() {
+function FeaturedCard({setLoading}) {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [featuredBlog, setFeaturedBlog] = useState([]);
@@ -23,6 +23,7 @@ function FeaturedCard() {
          const response = await axios.get(
            `${process.env.REACT_APP_API_URL}/blog/bestStories`
          );
+         setLoading(false);
          console.log(response.data);
          setFeaturedBlog(response.data.data);
        } catch (error) {

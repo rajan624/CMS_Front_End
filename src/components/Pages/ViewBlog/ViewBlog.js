@@ -10,6 +10,7 @@ import axios from "axios";
 import { GetType } from "../../../utilities/context/authContext";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 function ViewBlog() {
   const cookies = new Cookies();
   const navigate = useNavigate();
@@ -36,45 +37,17 @@ function ViewBlog() {
   }, []);
 
   const likeBlog = async () => {
-   const token = cookies.get("token");
-      console.log(token)
-      if (!token) {
-        return;
-      }
-      console.log("testing we are token is not working")
-      try {
-      await axios.get(
-          `${process.env.REACT_APP_API_URL}/user/likeMyBlog/${blogId}`,
-          {
-            headers: { Authorization: `${token}` },
-          }
-      ).then((data) => {
-        toast.success(data.data.data);
-        setBlog({...blog , like:blog.like+1  })
-      }).catch((error) => {
-          toast.error("Something went Wrong")
-        })
-        setFilled(true);
-      } catch (error) {
-        console.log(error);
-      }
-  }
-  
-  const bookmarkBlog = async () => {
-   const token = cookies.get("token");
-      console.log(token)
-      if (!token) {
-        return;
-      }
-      console.log("testing we are token is not working")
-      try {
+    const token = cookies.get("token");
+    console.log(token);
+    if (!token) {
+      return;
+    }
+    console.log("testing we are token is not working");
+    try {
       await axios
-        .get(
-          `${process.env.REACT_APP_API_URL}/user/bookmarkMyBlog/${blogId}`,
-          {
-            headers: { Authorization: `${token}` },
-          }
-        )
+        .get(`${process.env.REACT_APP_API_URL}/user/likeMyBlog/${blogId}`, {
+          headers: { Authorization: `${token}` },
+        })
         .then((data) => {
           toast.success(data.data.data);
           setBlog({ ...blog, like: blog.like + 1 });
@@ -82,53 +55,98 @@ function ViewBlog() {
         .catch((error) => {
           toast.error("Something went Wrong");
         });
-        setFilled(true);
-      } catch (error) {
-        console.log(error);
-      }
-  }
-  
-  const follow = async() => {
+      setFilled(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const bookmarkBlog = async () => {
     const token = cookies.get("token");
-      console.log(token)
-      if (!token) {
-        return;
-      }
-      try {
-        await axios.get(
-          `${process.env.REACT_APP_API_URL}/user/followUser/${userId}`,
-          {
-            headers: { Authorization: `${token}` },
-          }
-        ).then((data) => {
-          console.log("🚀 ~ file: ViewBlog.js:75 ~ ).then ~ data:", data)
+    console.log(token);
+    if (!token) {
+      return;
+    }
+    console.log("testing we are token is not working");
+    try {
+      await axios
+        .get(`${process.env.REACT_APP_API_URL}/user/bookmarkMyBlog/${blogId}`, {
+          headers: { Authorization: `${token}` },
+        })
+        .then((data) => {
+          toast.success(data.data.data);
+          setBlog({ ...blog, like: blog.like + 1 });
+        })
+        .catch((error) => {
+          toast.error("Something went Wrong");
+        });
+      setFilled(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const follow = async () => {
+    const token = cookies.get("token");
+    console.log(token);
+    if (!token) {
+      return;
+    }
+    try {
+      await axios
+        .get(`${process.env.REACT_APP_API_URL}/user/followUser/${userId}`, {
+          headers: { Authorization: `${token}` },
+        })
+        .then((data) => {
+          console.log("🚀 ~ file: ViewBlog.js:75 ~ ).then ~ data:", data);
           toast.success(data.data.data);
           setFilled(true);
-        }).catch((error) => {
-          toast.error(error?.response?.data?.data);
         })
-      } catch (error) {
-        console.log(error);
-      }
-  
-  }
+        .catch((error) => {
+          toast.error(error?.response?.data?.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className={classes.mainDiv}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta name="description" content={blog.heading} />
+        <meta property="og:title" content="Blogy" />
+        <meta property="og:description" content={blog.heading} />
+        <meta property="og:image" itemprop="image" content={blog.imageUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:url" content="https://cms-web-app-07.web.app/" />
+        <meta property="og:organization" content={blog.heading} />
+        <meta property="og:city" content={blog.heading} />
+        <meta property="og:image:width" content="200" />
+        <meta property="og:image:height" content="200" />
+        <meta property="fb:site_name" content="Blogy" />
+        <meta property="fb:title" content="Blogy" />
+        <meta property="fb:description" content={blog.heading} />
+        <meta property="fb:image" itemprop="image" content={blog.imageUrl} />
+        <meta property="fb:type" content="website" />
+        <meta property="fb:image:type" content="image/png" />
+        <meta property="fb:url" content="https://cms-web-app-07.web.app/" />
+        <meta property="fb:organization" content={blog.heading} />
+        <meta property="fb:city" content={blog.heading} />
+      </Helmet>
       <div className={classes.blogHeadingDiv}>
         <h1 className={classes.blogHeading}>{blog.heading}</h1>
         <p className={classes.blogDescription}>{blog.description}</p>
       </div>
       <div className={classes.writerProfileDiv}>
-       
-
         <div className={classes.writerNameTimeDiv}>
-        <Avatar
-          sx={{ cursor: "pointer" }}
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate(`/profile/${blog.createdBy._id}`);
-          }}
-          src={blog?.createdBy?.profileImage}
+          <Avatar
+            sx={{ cursor: "pointer" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/profile/${blog.createdBy._id}`);
+            }}
+            src={blog?.createdBy?.profileImage}
           />
           <div className={classes.writerNameFollowDiv}>
             <h4
@@ -137,14 +155,14 @@ function ViewBlog() {
                 e.stopPropagation();
                 navigate(`/profile/${blog.createdBy._id}`);
               }}
-              >
+            >
               {blog?.createdBy?.name}
             </h4>
             {user._id != userId ? (
               <button onClick={follow}>Follow</button>
-              ) : (
-                <></>
-                )}
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className={classes.likeShareDiv}>

@@ -18,6 +18,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ReceiptSharp } from '@material-ui/icons';
 const CustomHeightstyles550 = {
   "--height": "660px",
   "--width": "550px",
@@ -26,24 +27,29 @@ const CustomHeightstyles100 = {
   "--height": "100px",
   "--width": "100px",
 };
-function RecentCard() {
+function RecentCard( {  setLoading}) {
   const navigate = useNavigate();
+  const [offset, setOffset] = useState(1);
+  const [showLoadMoreButton, setShowLoadMoreButton] = useState(true);
    const [recentBlog, setRecentBlog] = useState([]);
    useEffect(() => {
      const fetchRecentBlog = async () => {
        try {
          const response = await axios.get(
-           `${process.env.REACT_APP_API_URL}/blog/bestAuthorStories`
+           `${process.env.REACT_APP_API_URL}/blog/bestAuthorStories?offset=${offset}`
          );
-         console.log(response.data);
-         setRecentBlog(response.data.data);
+         setLoading(false);
+         if (response.data.data.length==0) {
+           setShowLoadMoreButton(false)
+         }
+         setRecentBlog( [...recentBlog,...response.data.data]);
        } catch (error) {
          console.log(error);
        }
      };
 
      fetchRecentBlog();
-   }, []);
+   }, [offset]);
   return (
     <section class="section recent" aria-label="recent post">
       <div class="container">
@@ -139,7 +145,7 @@ function RecentCard() {
           </div>
         </div>
 
-        <ul class="grid-list">
+         <ul class="grid-list">
           {recentBlog.map((blog, index) => {
             return (
               <li
@@ -147,6 +153,7 @@ function RecentCard() {
                 onClick={() => {
                   navigate(`/${blog.createdBy._id}/${blog._id}`);
                 }}
+                key={index}
               >
                 <div class="blog-card">
                   <figure
@@ -212,10 +219,11 @@ function RecentCard() {
               </li>
             );
           })}
-        </ul>
-
-        <button class="btn">Load more</button>
-      </div>
+        </ul> 
+        {showLoadMoreButton ?
+          <button onClick={() => { setOffset(offset => offset + 12); setLoading(true); }} class="btn">Load more</button>
+          : <></>}
+        </div>
     </section>
   );
 }

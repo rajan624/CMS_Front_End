@@ -12,7 +12,7 @@ const CustomHeightstyles100 = {
   "--width": "100px",
 };
 
-function RecommendedCard() {
+function RecommendedCard({setLoading}) {
   const navigate = useNavigate();
    const [recommendedBlog, setRecommendedBlog] = useState([]);
    useEffect(() => {
@@ -22,6 +22,7 @@ function RecommendedCard() {
            `${process.env.REACT_APP_API_URL}/blog/recommendedStories`
          );
          console.log(response.data);
+          setLoading(false);
          setRecommendedBlog(response.data.data);
        } catch (error) {
          console.log(error);

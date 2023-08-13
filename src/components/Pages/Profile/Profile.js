@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import classes from "./Profile.module.css";
 import { Avatar, Box, Button, Checkbox, Chip, FormControlLabel, Grid, Link, Modal, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import Badge from "@mui/material/Badge";
 import { GrLocation } from "react-icons/gr";
 import { GetType } from "../../../utilities/context/authContext";
 import { useNavigate, useParams } from "react-router-dom";
@@ -42,9 +41,7 @@ function Profile() {
     const handleClose = () => setOpen(false);
   const navigate = useNavigate();
   const [messageArray, setMessageArray] = useState([]);
-  const [suggestionArray, setSuggestionArray] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  ]);
+  const [suggestionArray, setSuggestionArray] = useState([]);
   const onSubmit = async (data) => {
     const token = cookies.get("token");
      try {
@@ -170,6 +167,30 @@ function Profile() {
      };
      getAllChat();
    }, []);
+   useEffect(() => {
+     const getAllChat = async () => {
+       const token = cookies.get("token");
+       console.log(token);
+       if (!token) {
+         return;
+       }
+       try {
+         await axios
+           .get(`${process.env.REACT_APP_API_URL}/user/getFollowerSuggestion`, {
+             headers: { Authorization: `${token}` },
+           })
+           .then((data) => {
+             setSuggestionArray(data.data.data);
+           })
+           .catch((error) => {
+             toast.error("Something went Wrong");
+           });
+       } catch (error) {
+         console.log(error);
+       }
+     };
+     getAllChat();
+   }, []);
     const getSenderDetails = (data) => {
       const foundObject = data.find((obj) => obj._id != user._id);
       return foundObject || {};
@@ -264,8 +285,8 @@ function Profile() {
             {suggestionArray.map((data, index) => {
               return (
                 <div className={classes.suggestion}>
-                  <Avatar sx={{width:"60px" , height:"60px" }} />
-                  <h5>Lorem, ipsum.</h5>
+                  <Avatar src={data.profileImage} sx={{width:"60px" , height:"60px" }} />
+                  <h5>{data.name}</h5>
                 </div>
               );
             })}

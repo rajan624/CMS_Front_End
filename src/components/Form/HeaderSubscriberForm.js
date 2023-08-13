@@ -14,16 +14,18 @@ function HeaderSubscriberForm() {
       try {
         await axios
           .post(
-            `${process.env.REACT_APP_API_URL}/user/registerSubscriber`,
+            `${process.env.REACT_APP_API_URL}/subscriber/registerSubscriber`,
             data
           )
           .then(function (response) {
             toast.success(response.data.msg);
             console.log(response);
+            setEmail("");
           })
           .catch(function (error) {
             console.log(error);
             toast.error(error.response.data.msg);
+            setEmail("");
           });
       } catch (error) {
         console.log(error.response.data.msg);

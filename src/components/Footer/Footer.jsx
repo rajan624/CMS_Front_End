@@ -15,8 +15,7 @@ const Footer = () => {
               </a>
 
               <p class="footer-text">
-                A minimal, functional theme for running a paid-membership
-                publication on Ghost.
+                Discover, Engage, and Share on Blogy – Your Platform for Insights and Ideas.
               </p>
             </div>
 
@@ -45,7 +44,7 @@ const Footer = () => {
                 <ion-icon name="logo-pinterest"></ion-icon>
 
                 <a href="#" class="footer-link hover:underline">
-                  Pinterest
+                  Github
                 </a>
               </li>
 
@@ -53,7 +52,7 @@ const Footer = () => {
                 <ion-icon name="logo-vimeo"></ion-icon>
 
                 <a href="#" class="footer-link hover:underline">
-                  Vimeo
+                  Linkedin
                 </a>
               </li>
             </ul>
@@ -63,27 +62,10 @@ const Footer = () => {
                 <p class="h5">About</p>
               </li>
 
-              <li>
-                <a href="#" class="footer-link hover:underline">
-                  Style Guide
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="footer-link hover:underline">
-                  Features
-                </a>
-              </li>
 
               <li>
                 <a href="#" class="footer-link hover:underline">
                   Contact
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="footer-link hover:underline">
-                  404
                 </a>
               </li>
 
@@ -130,7 +112,7 @@ const Footer = () => {
               </li>
             </ul>
 
-            <ul class="footer-list">
+            {/* <ul class="footer-list">
               <li>
                 <p class="h5">Membership</p>
               </li>
@@ -164,14 +146,14 @@ const Footer = () => {
                   Authors
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </div>
 
           <div class="section footer-bottom">
             <p class="copyright">
-              &copy; Blogy 2022. Published by{" "}
+              &copy; Blogy 2023. Published by{" "}
               <a href="#" class="copyright-link hover:underline">
-                codewithsadee
+               Blogy
               </a>
               .
             </p>
